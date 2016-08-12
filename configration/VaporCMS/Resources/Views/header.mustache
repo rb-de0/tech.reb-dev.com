@@ -1,0 +1,34 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand">Vapor-CMS-Application</a>
+
+      <!-- toggle -->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div id="top-nav" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {{#has_session}}
+          <li><a href="/edit">記事一覧</a></li>
+        {{/has_session}}
+        {{#has_session}}
+          <li><a href="/new">新規投稿</a></li>
+        {{/has_session}}
+        <li><a href="{{#has_session}}/logout{{/has_session}}{{^has_session}}/login{{/has_session}}">
+          {{#has_session}}ログアウト{{/has_session}}{{^has_session}}ログイン{{/has_session}}</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/styles/common.css" rel="stylesheet">
+	<link href="/styles/card.css" rel="stylesheet">
+</head>
+
+<body>
+	{{>header}}
+
+	<div class="content">
+		{{# articles }}
+		<div class="card">
+			<div class="card-block">
+				<h3 class="card-title">{{ title }}</h3>
+				<p class="card-text">{{ part_of_content }}</p>
+				<a href="/update?id={{ id }}" class="btn btn-default">記事を編集する</a>
+			</div>
+
+			<div class="card-footer text-muted">
+				{{ created_at }}
+			</div>
+		</div>
+		{{/ articles }}
+
+		<div id="footer-content">
+
+			{{#has_previous}}
+				<a class="btn btn-default footer-left" href="/edit?page={{ previous }}" role="button">前のページ</a>
+			{{/has_previous}}
+
+			{{#has_next}}
+				<a class="btn btn-default footer-right" href="/edit?page={{ next }}" role="button">次のページ</a>
+			{{/has_next}}
+		
+		</div>
+		<div class="clearbox"></div>
+	</div>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NewPost</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/common.css" rel="stylesheet">
+</head>
+
+<body>
+  {{>header}}
+
+  <div class="content right">
+    <div class="container">
+      <div class="register-form">
+        <form action="/update" method="post">
+          <input type="hidden" name="id" value="{{ id }}">
+          <h1>記事を更新する</h1>
+          <div class="error-message">{{ error_message }}</div>
+          <div class="success-message">{{ success_message }}</div>
+          <br>
+          <br>
+
+          <div class="row">
+            <div class="col-sm-2">タイトル</div>
+            <div class="col-sm-10 form-inline" style="padding: 3px;">
+              <input type="text" class="form-control input-sm" value="{{ title }}" name="title" placeholder="タイトル" size="100">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2">非公開にする</div>
+            <div class="col-sm-10 form-inline" style="padding: 3px;">
+              <div class="checkbox">
+                <label><input type="checkbox" value=""/>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-2">内容</div>
+              <div class="col-sm-10" style="padding: 3px;">
+                <textarea class="form-control input-sm" rows="20" name="content" placeholder="内容">{{ content }}</textarea>
+              </div>
+            </div>
+
+            <button type="submit" id="register-btn" class="btn btn-default" name="action" value="article-register">更新する</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+  </html>

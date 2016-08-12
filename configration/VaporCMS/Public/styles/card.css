@@ -1,0 +1,21 @@
+div.card {
+  margin: 20px auto;
+  width: 90%;
+  border-radius: 5px;
+  background-color: rgba(244,244,244,0.6);
+  border: solid 1px rgba(224,224,224,0.6);
+}
+
+.card-text{
+  margin: 20px 100px;
+}
+
+div.card-footer{
+  margin-top: 10px;
+}
+
+@media screen and ( max-width: 480px ){
+  .card-text{
+    margin: 20px auto;
+  }
+}
