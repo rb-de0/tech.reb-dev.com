@@ -1,4 +1,4 @@
-# c90-sample-app
+# swift-cms-server
 
 Vaporを使って作ったSwift製の簡易CMSもどきです。
 
@@ -28,4 +28,4 @@ THE SOFTWARE.
 
 
 ## 依存関係
-依存ライブラリは [DEPENDENCY.md](https://github.com/rb-de0/c90-sample-app/blob/master/DEPENDENCY.md) に記載しています。
+依存ライブラリは [DEPENDENCY.md](https://github.com/rb-de0/swift-cms-server/blob/master/DEPENDENCY.md) に記載しています。
