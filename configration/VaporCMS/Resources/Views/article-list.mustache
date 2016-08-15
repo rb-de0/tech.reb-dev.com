@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	{{>header}}
+	{{>content_header}}
 
 	<div class="content">
 		{{# articles }}
@@ -22,7 +22,7 @@
 			<div class="card-block">
 				<h3 class="card-title">{{ title }}</h3>
 				<p class="card-text">{{ part_of_content }}</p>
-				<a href="/articles/detail/{{ id }}" class="btn btn-default">もっと見る</a>
+				<a href="/contents/{{ id }}" class="btn btn-default">もっと見る</a>
 			</div>
 
 			<div class="card-footer text-muted">

@@ -19,7 +19,8 @@ class ArticleListController: Controller{
 
         let viewArticles = articles.map{(article: Article) -> [String: Any] in
             var context = article.context()
-            context.updateValue(article.content.take(n: 100) ,forKey: "part_of_content")
+            let partOfContent = SecureUtil.stringOfEscapedScript(html: article.content.take(n: 100))
+            context.updateValue(partOfContent ,forKey: "part_of_content")
             return context
         }
 

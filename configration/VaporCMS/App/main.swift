@@ -2,7 +2,8 @@ import Vapor
 import VaporMustache
 
 let provider = VaporMustache.Provider(withIncludes: [
-    "header": "header.mustache"
+    "header": "header.mustache",
+    "content_header": "content-header.mustache"
 ])
 
 let config = Config(environment: .development)
@@ -33,7 +34,7 @@ app.resource("/new", controller: ArticleRegisterController.self)
 app.resource("/update", controller: ArticleUpdateController.self)
 
 // 記事詳細
-app.resource("/articles/detail/:id", controller: ArticleController.self)
+app.resource("/contents/:id", controller: ArticleController.self)
 
 // 記事一覧
 app.resource("/", controller: ArticleListController.self)

@@ -19,4 +19,9 @@ class SecureUtil{
         let token = application.hash.make(identifier)
         return session["authenticity_token"] == token
     }
+
+    // mustacheでエスケープさせずに手動で一部エスケープ
+    class func stringOfEscapedScript(html: String) -> String{
+        return html.replacingOccurrences(of: "</script>", with: "&lt;/script&gt;").replacingOccurrences(of: "<script>", with: "&lt;script&gt;")
+    }
 }

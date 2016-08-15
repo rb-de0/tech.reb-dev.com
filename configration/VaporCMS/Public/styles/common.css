@@ -29,7 +29,7 @@ div.row{
 }
 
 #article-content{
-	margin-top: 30px;
+	text-align: left;
 	font-size: 16px;
 }
 
@@ -42,6 +42,10 @@ div.row{
 #footer-content{
 	margin: 20px auto;
 	width: 90%;
+}
+
+.content-border{
+	margin: 40px auto;
 }
 
 .footer-right{

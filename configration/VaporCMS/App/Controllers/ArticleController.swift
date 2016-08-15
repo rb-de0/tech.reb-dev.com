@@ -1,5 +1,6 @@
 import Vapor
 import MySQL
+import SwiftyMarkdownParser
 
 class ArticleController: Controller {
     
@@ -21,7 +22,8 @@ class ArticleController: Controller {
             return try self.application.view("article.mustache", context: ["message": "存在しない記事です。"])
         }
 
-        let context: [String: Any] = ["title": article.title, "content": article.content, "createdAt": String(article.createdAt)]        
+        let html = SecureUtil.stringOfEscapedScript(html: Parser.toHtml(markdown: article.content))
+        let context: [String: Any] = ["title": article.title, "content": html, "createdAt": String(article.createdAt)]        
         return try self.application.view("article.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
     }
 }
