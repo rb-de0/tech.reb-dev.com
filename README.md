@@ -3,7 +3,20 @@
 Vaporを使って作ったSwift製の簡易CMSもどきです。
 
 ## 実行方法
-TODO
+
+### 依存関係
+
+- MySQL
+
+```bash
+$ sudo apt-get install mysql-server libmysqlclient-dev
+```
+
+- Discount
+
+```bash
+$ sudo apt-get install mysql-server libmarkdown2-dev
+```
 
 ## ライセンス
 Copyright (c) 2016 rb_de0 <rebirth.de0@gmail.com>
