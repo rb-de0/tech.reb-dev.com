@@ -1,14 +1,20 @@
 import Vapor
+import HTTP
 import MySQL
+import Node
 
-class LoginController: Controller {
+class LoginController: ResourceRepresentable {
     
-    typealias Item = String
+    private weak var drop: Droplet!
     
-    private weak var application: Application!
-    
-    required init(application: Application) {
-        self.application = application
+    init(drop: Droplet) {
+        self.drop = drop
+    }
+
+    func makeResource() -> Resource<String>{
+        return Resource(
+            index: index
+        )
     }
     
     func index(request: Request) throws -> ResponseRepresentable {
@@ -16,30 +22,34 @@ class LoginController: Controller {
             return Response(redirect: "/edit")
         }
 
-        SecureUtil.setAuthenticityToken(application: application, request: request)
+        SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
 
-        return try self.application.view("login.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("login")
+        //return try self.application.view("login.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: [:]))
     }
     
     func store(request: Request) throws -> ResponseRepresentable {
 
-        guard SecureUtil.verifyAuthenticityToken(application: application, request: request) else{
+        guard SecureUtil.verifyAuthenticityToken(drop: self.drop, request: request) else{
             return "Invalid request"
         }
 
         do{
             let userInput = try UserInput(request: request)
 
-            guard let loginUser = UserAccessor.isLoggedIn(application: application, input: userInput) else{
+            guard let loginUser = UserAccessor.isLoggedIn(drop: self.drop, input: userInput) else{
                 let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": "IDかパスワードが異なります。"])
-                return try self.application.view("login.mustache", context: context)
+                return try self.drop.view.make("login")
+                //return try self.application.view("login.mustache", context: context)
             }
 
-            request.session?["userid"] = String(loginUser.id)
+            try! request.session().data["userid"] = Node(String(loginUser.id))
             return Response(redirect: "/edit")
 
         }catch let validationError as ValidationErrorProtocol{
-            return try self.application.view("login.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: ["error_message": validationError.message]))
+
+            return try self.drop.view.make("login")
+            //return try self.application.view("login.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: ["error_message": validationError.message]))
         }
     }
 }

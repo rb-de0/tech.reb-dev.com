@@ -1,4 +1,5 @@
 import Vapor
+import HTTP
 
 class ViewUtil{
     class func contextIncludeHeader(request: Request, context: [String: Any]) -> [String: Any]{

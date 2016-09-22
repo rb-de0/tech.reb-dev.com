@@ -1,14 +1,20 @@
 import Vapor
+import HTTP
 import MySQL
 
-class LogoutController: Controller{
+class LogoutController: ResourceRepresentable{
 
-    typealias Item = String
+    private weak var drop: Droplet!
     
-    private weak var application: Application!
-    
-    required init(application: Application) {
-        self.application = application
+    init(drop: Droplet) {
+        self.drop = drop
+    }
+
+    func makeResource() -> Resource<String>{
+        return Resource(
+            index: index,
+            store: store
+        )
     }
 
     func index(request: Request) throws -> ResponseRepresentable {

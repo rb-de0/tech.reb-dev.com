@@ -8,7 +8,7 @@ class ArticleAccessor{
 extension ArticleAccessor{
     class func update(id: String, input: ArticleInput) -> Bool{
         do{
-            try DatabaseUtil.connectionPool().execute { conn in
+            let _ = try DatabaseUtil.connectionPool().execute { conn in
                 try conn.query("UPDATE articles SET title=?, content=? WHERE id=?", [input.title.value, input.content.value, id])
             }
         }catch{
@@ -23,7 +23,7 @@ extension ArticleAccessor{
 extension ArticleAccessor{
     class func register(input: ArticleInput) -> Bool {
         do{
-            try DatabaseUtil.connectionPool().execute { conn in
+            let _ = try DatabaseUtil.connectionPool().execute { conn in
                 try conn.query("INSERT INTO articles (title, content) VALUES (?,?)", [input.title.value, input.content.value])
             }
         }catch{

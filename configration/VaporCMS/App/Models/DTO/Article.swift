@@ -12,7 +12,7 @@ extension Renderable{
         let mirror = Mirror(reflecting: self)
 
         for child in mirror.children where child.label != nil{
-            dic.updateValue(String(child.value), forKey: child.label!)
+            dic.updateValue(String(describing: child.value), forKey: child.label!)
         }
 
         return dic

@@ -1,4 +1,5 @@
 import Vapor
+import HTTP
 
 struct UserInput{
     let username: Valid<Count<String>>
