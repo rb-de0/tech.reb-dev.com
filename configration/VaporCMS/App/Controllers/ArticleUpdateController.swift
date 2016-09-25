@@ -27,13 +27,11 @@ class ArticleUpdateController: ResourceRepresentable {
 
         // 誰でも編集可能なのでユーザーはチェックしない
         if let id = request.data["id"]?.string, let article = ArticleAccessor.load(id: id){
-            let context = article.context()
-            return try self.drop.view.make("article-update")
-            //return try self.application.view("article-update.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+            let context = ViewUtil.contextIncludeHeader(request: request, context: article.context())
+            return try self.drop.view.make("article-update", context)
         }
 
-        return try self.drop.view.make("article-update")
-        //return try self.application.view("article-update.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("article-update", ViewUtil.contextIncludeHeader(request: request, context: [:]))
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
@@ -63,15 +61,16 @@ class ArticleUpdateController: ResourceRepresentable {
             (errorMessage, successMessage) = (validationError.message, "")
         }
 
-        let context: [String: Any] = [
-            "id": id,
-            "title": request.data["title"]?.string ?? "",
-            "content": request.data["content"]?.string ?? "",
-            "error_message": errorMessage, 
-            "success_message": successMessage
+        let viewData: [String: Node] = [
+            "id": Node(id),
+            "title": Node(request.data["title"]?.string ?? ""),
+            "content": Node(request.data["content"]?.string ?? ""),
+            "error_message": Node(errorMessage), 
+            "success_message": Node(successMessage)
         ]
+
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
         
-        return try self.drop.view.make("article-update")
-        //return try self.application.view("article-update.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+        return try self.drop.view.make("article-update", context)
     }
 }

@@ -1,4 +1,5 @@
 import MySQL
+import Foundation
 
 class ArticleAccessor{
     static let SELECT_UNIT = 10
@@ -23,8 +24,9 @@ extension ArticleAccessor{
 extension ArticleAccessor{
     class func register(input: ArticleInput) -> Bool {
         do{
+            let createdAt = Date()
             let _ = try DatabaseUtil.connectionPool().execute { conn in
-                try conn.query("INSERT INTO articles (title, content) VALUES (?,?)", [input.title.value, input.content.value])
+                try conn.query("INSERT INTO articles (title, content, created_at) VALUES (?,?,?)", [input.title.value, input.content.value, String(describing: createdAt)])
             }
         }catch{
             return false

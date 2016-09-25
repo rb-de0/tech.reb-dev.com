@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ title }}</title>
+	<title>#(title)</title>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,22 +13,24 @@
 </head>
 
 <body>
-	{{>content_header}}
+	#embed("content-header")
+
+	#(message)
 
 	<div class="content">
 		<div class="container">
 
 			<div id="article-title">
-				{{ title }}
+				#(title)
 			</div>
 
 			<div id="article-publish-date">
-				投稿日時 : {{ createdAt }}
+				投稿日時 : #(createdAt)
 			</div>
 
 			<hr class="content-border">
 			<div id="article-content">
-				{{{ content }}}
+				#(content)
 			</div>
 
 		</div>

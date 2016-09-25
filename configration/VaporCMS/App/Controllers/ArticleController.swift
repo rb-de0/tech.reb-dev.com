@@ -20,19 +20,19 @@ class ArticleController: ResourceRepresentable {
     func index(request: Request) throws -> ResponseRepresentable {
 
         guard let id = request.parameters["id"]?.string else{
-            return try self.drop.view.make("article")
-            //return try self.application.view("article.mustache", context: ["message": "エラー"])
+            let context = Node(["message": Node("エラー")])
+            return try self.drop.view.make("article", context)
         }
 
         guard let article = ArticleAccessor.load(id: id) else{
-            return try self.drop.view.make("article")
-            //return try self.application.view("article.mustache", context: ["message": "存在しない記事です。"])
+            let context = Node(["message": Node("存在しない記事です。")])
+            return try self.drop.view.make("article", context)
         }
 
         let html = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: article.content))
-        let context: [String: Any] = ["title": article.title, "content": html, "createdAt": String(describing: article.createdAt)] 
+        let viewData: [String: Node] = ["title": Node(article.title), "content": Node(html), "createdAt": Node(article.createdAt)] 
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
 
-        return try self.drop.view.make("article")
-        //return try self.application.view("article.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+        return try self.drop.view.make("article", context)
     }
 }

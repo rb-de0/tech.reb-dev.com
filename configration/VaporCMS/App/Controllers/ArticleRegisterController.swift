@@ -25,8 +25,7 @@ class ArticleRegisterController: ResourceRepresentable {
 
         SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
 
-        return try self.drop.view.make("article-register")
-        //return try self.application.view("article-register.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("article-register", ViewUtil.contextIncludeHeader(request: request, context: [:]))
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
@@ -52,14 +51,14 @@ class ArticleRegisterController: ResourceRepresentable {
             (errorMessage, successMessage) = (validationError.message, "")            
         }
 
-        let context: [String: Any] = [
-            "title": request.data["title"]?.string ?? "",
-            "content": request.data["content"]?.string ?? "",
-            "error_message": errorMessage, 
-            "success_message": successMessage
+        let viewData: [String: Node] = [
+            "title": Node(request.data["title"]?.string ?? ""),
+            "content": Node(request.data["content"]?.string ?? ""),
+            "error_message": Node(errorMessage), 
+            "success_message": Node(successMessage)
         ]
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
 
-        return try self.drop.view.make("article-register")
-        //return try self.application.view("article-register.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+        return try self.drop.view.make("article-register", context)
     }
 }

@@ -13,7 +13,8 @@ class LoginController: ResourceRepresentable {
 
     func makeResource() -> Resource<String>{
         return Resource(
-            index: index
+            index: index,
+            store: store
         )
     }
     
@@ -24,8 +25,7 @@ class LoginController: ResourceRepresentable {
 
         SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
 
-        return try self.drop.view.make("login")
-        //return try self.application.view("login.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("login", ViewUtil.contextIncludeHeader(request: request, context: [:]))
     }
     
     func store(request: Request) throws -> ResponseRepresentable {
@@ -38,18 +38,16 @@ class LoginController: ResourceRepresentable {
             let userInput = try UserInput(request: request)
 
             guard let loginUser = UserAccessor.isLoggedIn(drop: self.drop, input: userInput) else{
-                let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": "IDかパスワードが異なります。"])
-                return try self.drop.view.make("login")
-                //return try self.application.view("login.mustache", context: context)
+                let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node("IDかパスワードが異なります。")])
+                return try self.drop.view.make("login", context)
             }
 
             try! request.session().data["userid"] = Node(String(loginUser.id))
             return Response(redirect: "/edit")
 
         }catch let validationError as ValidationErrorProtocol{
-
-            return try self.drop.view.make("login")
-            //return try self.application.view("login.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: ["error_message": validationError.message]))
+            let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node(validationError.message)])
+            return try self.drop.view.make("login", context)
         }
     }
 }

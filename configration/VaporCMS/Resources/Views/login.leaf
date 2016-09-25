@@ -13,7 +13,7 @@
 </head>
 
 <body>
-	{{>header}}
+	#embed("header")
 
 	<div class="content">
 		<div class="container">
@@ -22,7 +22,7 @@
 					<h1>ログイン画面</h1>
 					<br>
 
-					<div class="error-message">{{ error_message }}</div>
+					<div class="error-message">#(error_message)</div>
 
 					<div class="row">
 						<div class="col-sm-2">ユーザー名</div>

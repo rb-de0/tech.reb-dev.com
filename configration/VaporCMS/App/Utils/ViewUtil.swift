@@ -1,10 +1,11 @@
 import Vapor
 import HTTP
+import Node
 
 class ViewUtil{
-    class func contextIncludeHeader(request: Request, context: [String: Any]) -> [String: Any]{
+    class func contextIncludeHeader(request: Request, context: [String: Node]) -> Node{
         var includedContext = context
-        includedContext["has_session"] = SessionManager.hasSession(request: request)
-        return includedContext
+        includedContext["has_session"] = Node(SessionManager.hasSession(request: request))
+        return Node(includedContext)
     }
 }

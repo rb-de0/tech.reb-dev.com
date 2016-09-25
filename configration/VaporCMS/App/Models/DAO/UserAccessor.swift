@@ -4,7 +4,7 @@ import MySQL
 class UserAccessor{
 
     class func isLoggedIn(drop: Droplet, input: UserInput) -> User?{
-        let hashed = try? drop.hash.make(input.password.value, key: nil) ?? ""
+        let hashed = try? drop.hash.make(input.password.value, key: nil)
 
         do{
             let users: [User] = try DatabaseUtil.connectionPool().execute { conn in

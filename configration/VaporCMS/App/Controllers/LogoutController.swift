@@ -21,7 +21,7 @@ class LogoutController: ResourceRepresentable{
         let response = Response(redirect: "/login")
 
         // TODO: アップデートしたら直す
-        response.headers["Set-Cookie"] = "vapor-session=hoge; max-age=0"
+        try? request.session().data["userid"] = nil
         return response
     }
 
@@ -29,7 +29,7 @@ class LogoutController: ResourceRepresentable{
         let response = Response(redirect: "/login")
 
         // TODO: アップデートしたら直す
-        response.headers["Set-Cookie"] = "vapor-session=hoge; max-age=0"
+        try? request.session().data["userid"] = nil
         return response
     }
 }

@@ -2,17 +2,17 @@ import MySQL
 import Vapor
 
 protocol Renderable{
-    func context() -> [String: Any]
+    func context() -> [String: Node]
 }
 
 extension Renderable{
-    func context() -> [String: Any]{
+    func context() -> [String: Node]{
 
-        var dic = [String: Any]()
+        var dic = [String: Node]()
         let mirror = Mirror(reflecting: self)
 
         for child in mirror.children where child.label != nil{
-            dic.updateValue(String(describing: child.value), forKey: child.label!)
+            dic.updateValue(Node(String(describing: child.value)), forKey: child.label!)
         }
 
         return dic
@@ -24,7 +24,7 @@ struct Article: QueryRowResultType, Renderable{
     var title: String
     var content: String
     var isPublished: Bool
-    var createdAt: SQLDate
+    var createdAt: String
     
     static func decodeRow(r: QueryRowResult) throws -> Article {
         return try Article(

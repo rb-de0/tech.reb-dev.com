@@ -9,19 +9,27 @@ class SecureUtil{
         // スタートさせる...
         try! request.session().data["start"] = Node("hoge")
 
-        let session = try! request.session()
-        let id = session.identifier!
-        let token = try! drop.hash.make(id, key: nil)
+        guard let session = try? request.session(), let identifier = session.identifier else{
+            return
+        }
 
-        try! request.session().data["authenticity_token"] = Node(token)
+        guard let token = try? drop.hash.make(identifier, key: nil) else{
+            return
+        }
+
+        try? request.session().data["authenticity_token"] = Node(token)
     }
 
     class func verifyAuthenticityToken(drop: Droplet, request: Request) -> Bool{
+        
         guard let session = try? request.session(), let identifier = session.identifier else{
             return false
         }
 
-        let token = try! drop.hash.make(identifier, key: nil)
+        guard let token = try? drop.hash.make(identifier, key: nil) else{
+            return false
+        }
+
         return session.data["authenticity_token"] == Node(token)
     }
 
