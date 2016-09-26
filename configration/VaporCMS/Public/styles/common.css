@@ -18,8 +18,10 @@ div.row{
 }
 
 #article-title{
+	font-weight: bold;
 	text-align: left;
 	font-size: 30px;
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
@@ -29,8 +31,47 @@ div.row{
 }
 
 #article-content{
+	line-height: 30px;
 	text-align: left;
 	font-size: 16px;
+	margin-bottom: 120px;
+}
+
+#article-content h2{
+	font-weight: bold;
+	margin-top: 48px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid #ddd;
+}
+
+#article-content h3{
+	font-weight: bold;
+	margin-top: 24px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+#article-content h4{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+#article-content pre{
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+#article-content li{
+	line-height: 24px;
+}
+
+#article-content ul{
+	margin: 0 0 0 24px;
+	padding: 0;
 }
 
 #register-btn{
@@ -45,7 +86,8 @@ div.row{
 }
 
 .content-border{
-	margin: 40px auto;
+	margin-top: 12px;
+	margin-bottom: 32px;
 }
 
 .footer-right{
@@ -65,7 +107,7 @@ div.row{
 }
 
 .clearbox {
-    clear: both;
+  clear: both;
 	height: 20px;
 }
 
