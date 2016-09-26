@@ -1,26 +1,40 @@
-# swift-cms-server
+# vapor-cms
 
-Vaporを使って作ったSwift製の簡易CMSもどきです。
+A simple cms server written by swift.
 
-## 実行方法
+## Prerequisites
 
-### 依存関係
+#### Swift 
+- 3.0 Release
 
-- MySQL
+#### macOS
+- OS X El Captain 10.11.6
+
+#### Linux
+- Ubuntu 14.04
+
+#### MySQL
 
 ```bash
 $ sudo apt-get install mysql-server libmysqlclient-dev
 ```
 
-- Discount
+#### Discount
 
 ```bash
 $ sudo apt-get install libmarkdown2-dev
 ```
 
-## ライセンス
+## Usage
+TODO
+
+## TODO
+- [ ] add usage
+- [ ] add script for preparing DB
+
+## LICENSE
 swift-cms-server is released under the MIT License. See the LICENSE.md file for more info.
 
 
-## 依存関係
-依存ライブラリは [DEPENDENCY.md](https://github.com/rb-de0/swift-cms-server/blob/master/DEPENDENCY.md) に記載しています。
+## DEPENDENCY
+[DEPENDENCY.md](https://github.com/rb-de0/swift-cms-server/blob/master/DEPENDENCY.md) 
