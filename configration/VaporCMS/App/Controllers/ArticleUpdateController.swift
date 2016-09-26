@@ -1,15 +1,21 @@
 import Vapor
+import HTTP
 
-class ArticleUpdateController: Controller {
+class ArticleUpdateController: ResourceRepresentable {
     
-    typealias Item = String
+    private weak var drop: Droplet!
     
-    private weak var application: Application!
-    
-    required init(application: Application) {
-        self.application = application
+    init(drop: Droplet) {
+        self.drop = drop
     }
-    
+
+    func makeResource() -> Resource<String>{
+        return Resource(
+            index: index,
+            store: store
+        )
+    }
+
     func index(request: Request) throws -> ResponseRepresentable {
 
         guard SessionManager.hasSession(request: request) else{
@@ -17,20 +23,20 @@ class ArticleUpdateController: Controller {
             return response
         }
 
-        SecureUtil.setAuthenticityToken(application: application, request: request)
+        SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
 
         // 誰でも編集可能なのでユーザーはチェックしない
-        if let id = request.data["id"].string, article = ArticleAccessor.load(id: id){
-            let context = article.context()
-            return try self.application.view("article-update.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+        if let id = request.data["id"]?.string, let article = ArticleAccessor.load(id: id){
+            let context = ViewUtil.contextIncludeHeader(request: request, context: article.context())
+            return try self.drop.view.make("article-update", context)
         }
 
-        return try self.application.view("article-update.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("article-update", ViewUtil.contextIncludeHeader(request: request, context: [:]))
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
 
-        guard SecureUtil.verifyAuthenticityToken(application: application, request: request) else{
+        guard SecureUtil.verifyAuthenticityToken(drop: self.drop, request: request) else{
             return "Invalid request"
         }
 
@@ -38,7 +44,7 @@ class ArticleUpdateController: Controller {
             return Response(redirect: "/")
         }
 
-        guard let id = request.data["id"].string else{
+        guard let id = request.data["id"]?.string else{
             return Response(redirect: "/new")
         }
 
@@ -55,14 +61,16 @@ class ArticleUpdateController: Controller {
             (errorMessage, successMessage) = (validationError.message, "")
         }
 
-        let context: [String: Any] = [
-            "id": id,
-            "title": request.data["title"].string ?? "",
-            "content": request.data["content"].string ?? "",
-            "error_message": errorMessage, 
-            "success_message": successMessage
+        let viewData: [String: Node] = [
+            "id": Node(id),
+            "title": Node(request.data["title"]?.string ?? ""),
+            "content": Node(request.data["content"]?.string ?? ""),
+            "error_message": Node(errorMessage), 
+            "success_message": Node(successMessage)
         ]
+
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
         
-        return try self.application.view("article-update.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+        return try self.drop.view.make("article-update", context)
     }
 }

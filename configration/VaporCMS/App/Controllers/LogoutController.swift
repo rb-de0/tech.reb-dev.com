@@ -1,21 +1,27 @@
 import Vapor
+import HTTP
 import MySQL
 
-class LogoutController: Controller{
+class LogoutController: ResourceRepresentable{
 
-    typealias Item = String
+    private weak var drop: Droplet!
     
-    private weak var application: Application!
-    
-    required init(application: Application) {
-        self.application = application
+    init(drop: Droplet) {
+        self.drop = drop
+    }
+
+    func makeResource() -> Resource<String>{
+        return Resource(
+            index: index,
+            store: store
+        )
     }
 
     func index(request: Request) throws -> ResponseRepresentable {
         let response = Response(redirect: "/login")
 
         // TODO: アップデートしたら直す
-        response.headers["Set-Cookie"] = "vapor-session=hoge; max-age=0"
+        try? request.session().data["userid"] = nil
         return response
     }
 
@@ -23,7 +29,7 @@ class LogoutController: Controller{
         let response = Response(redirect: "/login")
 
         // TODO: アップデートしたら直す
-        response.headers["Set-Cookie"] = "vapor-session=hoge; max-age=0"
+        try? request.session().data["userid"] = nil
         return response
     }
 }

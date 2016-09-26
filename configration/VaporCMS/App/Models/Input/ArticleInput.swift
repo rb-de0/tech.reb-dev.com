@@ -1,4 +1,5 @@
 import Vapor
+import HTTP
 
 struct ArticleInput{
     let title: Valid<Count<String>>

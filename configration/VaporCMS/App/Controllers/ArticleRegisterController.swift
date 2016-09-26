@@ -1,13 +1,19 @@
 import Vapor
+import HTTP
 
-class ArticleRegisterController: Controller {
+class ArticleRegisterController: ResourceRepresentable {
     
-    typealias Item = String
+    private weak var drop: Droplet!
     
-    private weak var application: Application!
-    
-    required init(application: Application) {
-        self.application = application
+    init(drop: Droplet) {
+        self.drop = drop
+    }
+
+    func makeResource() -> Resource<String>{
+        return Resource(
+            index: index,
+            store: store
+        )
     }
     
     func index(request: Request) throws -> ResponseRepresentable {
@@ -17,14 +23,14 @@ class ArticleRegisterController: Controller {
             return response
         }
 
-        SecureUtil.setAuthenticityToken(application: application, request: request)
+        SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
 
-        return try self.application.view("article-register.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("article-register", ViewUtil.contextIncludeHeader(request: request, context: [:]))
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
 
-        guard SecureUtil.verifyAuthenticityToken(application: application, request: request) else{
+        guard SecureUtil.verifyAuthenticityToken(drop: self.drop, request: request) else{
             return "Invalid request"
         }
 
@@ -45,12 +51,14 @@ class ArticleRegisterController: Controller {
             (errorMessage, successMessage) = (validationError.message, "")            
         }
 
-        let context: [String: Any] = [
-            "title": request.data["title"].string ?? "",
-            "content": request.data["content"].string ?? "",
-            "error_message": errorMessage, 
-            "success_message": successMessage
+        let viewData: [String: Node] = [
+            "title": Node(request.data["title"]?.string ?? ""),
+            "content": Node(request.data["content"]?.string ?? ""),
+            "error_message": Node(errorMessage), 
+            "success_message": Node(successMessage)
         ]
-        return try self.application.view("article-register.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
+
+        return try self.drop.view.make("article-register", context)
     }
 }

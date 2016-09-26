@@ -1,44 +1,44 @@
 import Vapor
-import VaporMustache
 
+/*
 let provider = VaporMustache.Provider(withIncludes: [
     "header": "header.mustache",
     "content_header": "content-header.mustache"
 ])
+*/
 
-let config = Config(environment: .development)
-let app = Application(providers: [provider], config: config)
+let drop = Droplet(environment: .development)
 
 // See: https://github.com/vapor/vapor/issues/502
 // セッションCookieのPathが設定されていて辛いのでパスが怪しい
 
 // ログイン
-app.resource("/login", controller: LoginController.self)
+drop.resource("/login", LoginController(drop: drop))
 
 // ログアウト
-app.resource("/logout", controller: LogoutController.self)
+drop.resource("/logout", LogoutController(drop: drop))
 
 // 記事編集
-app.resource("/edit", controller: ArticleEditController.self)
+drop.resource("/edit", ArticleEditController(drop: drop))
 
 // セッションが直ったら直したい
 // app.resource("/edit/:page", controller: ArticleEditController.self)
 
 // 記事投稿
-app.resource("/new", controller: ArticleRegisterController.self)
+drop.resource("/new", ArticleRegisterController(drop: drop))
 
 // セッションが直ったら直したい
 //app.resource("/new/:id", controller: ArticleRegisterController.self)
 
 // 記事更新
-app.resource("/update", controller: ArticleUpdateController.self)
+drop.resource("/update", ArticleUpdateController(drop: drop))
 
 // 記事詳細
-app.resource("/contents/:id", controller: ArticleController.self)
+drop.resource("/contents/:id", ArticleController(drop: drop))
 
 // 記事一覧
-app.resource("/", controller: ArticleListController.self)
-app.resource("/articles", controller: ArticleListController.self)
-app.resource("/articles/page/:page", controller: ArticleListController.self)
+drop.resource("/", ArticleListController(drop: drop))
+drop.resource("/articles", ArticleListController(drop: drop))
+drop.resource("/articles/page/:page", ArticleListController(drop: drop))
 
-app.start()
+drop.run()

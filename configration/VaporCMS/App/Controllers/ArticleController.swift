@@ -1,29 +1,38 @@
 import Vapor
+import HTTP
 import MySQL
 import SwiftyMarkdownParser
 
-class ArticleController: Controller {
+class ArticleController: ResourceRepresentable {   
+
+    private weak var drop: Droplet!
     
-    typealias Item = String
-    
-    private weak var application: Application!
-    
-    required init(application: Application) {
-        self.application = application
+    init(drop: Droplet) {
+        self.drop = drop
+    }
+
+    func makeResource() -> Resource<String>{
+        return Resource(
+            index: index
+        )
     }
     
     func index(request: Request) throws -> ResponseRepresentable {
 
-        guard let id = request.parameters["id"] else{
-            return try self.application.view("article.mustache", context: ["message": "エラー"])
+        guard let id = request.parameters["id"]?.string else{
+            let context = Node(["message": Node("エラー")])
+            return try self.drop.view.make("article", context)
         }
 
         guard let article = ArticleAccessor.load(id: id) else{
-            return try self.application.view("article.mustache", context: ["message": "存在しない記事です。"])
+            let context = Node(["message": Node("存在しない記事です。")])
+            return try self.drop.view.make("article", context)
         }
 
-        let html = SecureUtil.stringOfEscapedScript(html: Parser.toHtml(markdown: article.content))
-        let context: [String: Any] = ["title": article.title, "content": html, "createdAt": String(article.createdAt)]        
-        return try self.application.view("article.mustache", context: ViewUtil.contextIncludeHeader(request: request, context: context))
+        let html = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: article.content))
+        let viewData: [String: Node] = ["title": Node(article.title), "content": Node(html), "createdAt": Node(article.createdAt)] 
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
+
+        return try self.drop.view.make("article", context)
     }
 }

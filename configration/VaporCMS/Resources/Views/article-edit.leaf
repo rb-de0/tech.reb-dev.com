@@ -14,32 +14,32 @@
 </head>
 
 <body>
-	{{>header}}
+	#embed("header")
 
 	<div class="content">
-		{{# articles }}
-		<div class="card">
-			<div class="card-block">
-				<h3 class="card-title">{{ title }}</h3>
-				<p class="card-text">{{ part_of_content }}</p>
-				<a href="/update?id={{ id }}" class="btn btn-default">記事を編集する</a>
-			</div>
+		#loop(articles, "article") {
+			<div class="card">
+				<div class="card-block">
+					<h3 class="card-title">#(article.title)</h3>
+					<p class="card-text">#(article.part_of_content)</p>
+					<a href="/update?id=#(article.id)" class="btn btn-default">記事を編集する</a>
+				</div>
 
-			<div class="card-footer text-muted">
-				{{ created_at }}
+				<div class="card-footer text-muted">
+					#(article.created_at)
+				</div>
 			</div>
-		</div>
-		{{/ articles }}
+		}
 
 		<div id="footer-content">
 
-			{{#has_previous}}
-				<a class="btn btn-default footer-left" href="/edit?page={{ previous }}" role="button">前のページ</a>
-			{{/has_previous}}
+			#if(has_previous) {
+				<a class="btn btn-default footer-left" href="/articles/page/#(previous)" role="button">前のページ</a>
+			}
 
-			{{#has_next}}
-				<a class="btn btn-default footer-right" href="/edit?page={{ next }}" role="button">次のページ</a>
-			{{/has_next}}
+			#if(has_next) {
+				<a class="btn btn-default footer-right" href="/articles/page/#(next)" role="button">次のページ</a>
+			}
 		
 		</div>
 		<div class="clearbox"></div>

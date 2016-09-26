@@ -1,23 +1,36 @@
 import Vapor
+import HTTP
+import Node
 
 class SecureUtil{
 
-    class func setAuthenticityToken(application: Application, request: Request){
+    class func setAuthenticityToken(drop: Droplet, request: Request){
 
         // スタートさせる...
-        request.session?["start"] = "hoge"
+        try! request.session().data["start"] = Node("hoge")
 
-        let token = application.hash.make(request.session!.identifier!)
-        request.session?["authenticity_token"] = token
+        guard let session = try? request.session(), let identifier = session.identifier else{
+            return
+        }
+
+        guard let token = try? drop.hash.make(identifier, key: nil) else{
+            return
+        }
+
+        try? request.session().data["authenticity_token"] = Node(token)
     }
 
-    class func verifyAuthenticityToken(application: Application, request: Request) -> Bool{
-        guard let session = request.session, identifier = session.identifier else{
+    class func verifyAuthenticityToken(drop: Droplet, request: Request) -> Bool{
+        
+        guard let session = try? request.session(), let identifier = session.identifier else{
             return false
         }
 
-        let token = application.hash.make(identifier)
-        return session["authenticity_token"] == token
+        guard let token = try? drop.hash.make(identifier, key: nil) else{
+            return false
+        }
+
+        return session.data["authenticity_token"] == Node(token)
     }
 
     // mustacheでエスケープさせずに手動で一部エスケープ

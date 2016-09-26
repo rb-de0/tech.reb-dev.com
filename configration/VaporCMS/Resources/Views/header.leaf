@@ -4,11 +4,13 @@
       <a class="navbar-brand">Vapor-CMS-Application</a>
 
       <!-- toggle -->
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+      #raw() {
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      }
     </div>
 
     <div id="top-nav" class="collapse navbar-collapse">
@@ -18,15 +20,20 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        {{#has_session}}
+
+		#if(has_session) {
           <li><a href="/edit">記事一覧</a></li>
-        {{/has_session}}
-        {{#has_session}}
           <li><a href="/new">新規投稿</a></li>
-        {{/has_session}}
-        <li><a href="{{#has_session}}/logout{{/has_session}}{{^has_session}}/login{{/has_session}}">
-          {{#has_session}}ログアウト{{/has_session}}{{^has_session}}ログイン{{/has_session}}</a>
-        </li>
+        }
+        
+		#if(has_session) {
+			<li><a href="/logout">ログアウト</a></li>
+		}
+
+		#equal(has_session, false) {
+			<li><a href="/login">ログイン</a></li>
+		}
+
       </ul>
 
     </div>
