@@ -1,12 +1,5 @@
 import Vapor
 
-/*
-let provider = VaporMustache.Provider(withIncludes: [
-    "header": "header.mustache",
-    "content_header": "content-header.mustache"
-])
-*/
-
 let drop = Droplet(environment: .development)
 
 // See: https://github.com/vapor/vapor/issues/502
