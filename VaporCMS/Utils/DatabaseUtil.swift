@@ -1,4 +1,5 @@
 import MySQL
+import Settings
 
 class DatabaseUtil{
     
@@ -9,10 +10,24 @@ class DatabaseUtil{
         let password: String
         let database: String
     }
-    
-    private static let options = DataBaseOption(host: "localhost", port: 3306, user: "root", password: "root", database: "vapor_cms")
+
+    private static var options: DataBaseOption?
+
+    class func configure(config: Settings.Config){
+        let host = config["database", "host"]?.string ?? "localhost"
+        let port = config["database", "port"]?.int ?? 3306
+        let user = config["database", "user"]?.string ?? ""
+        let password = config["database", "password"]?.string ?? ""
+        let database = config["database", "database"]?.string ?? ""
+
+        options = DataBaseOption(host: host, port: port, user: user, password: password, database: database)
+    }
     
     class func connectionPool() -> ConnectionPool{
-        return ConnectionPool(options: options)
+        guard let op = options else{
+            fatalError("db is not configured")
+        }
+
+        return ConnectionPool(options: op)
     }
 }

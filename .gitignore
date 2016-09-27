@@ -1,5 +1,14 @@
+
+# vagrant
 .vagrant
+
+# OS X
 .DS_Store
+
+# Swift
 /.build
 /Packages
 /*.xcodeproj
+
+# Secure
+database.json
