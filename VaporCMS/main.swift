@@ -4,6 +4,9 @@ let drop = Droplet(environment: .development)
 
 DatabaseUtil.configure(config: drop.config)
 
+let subContents = SubContentAccessor.loadAll()
+print(subContents.map{$0.context()})
+
 // See: https://github.com/vapor/vapor/issues/502
 // セッションCookieのPathが設定されていて辛いのでパスが怪しい
 
@@ -35,5 +38,8 @@ drop.resource("/contents/:id", ArticleController(drop: drop))
 drop.resource("/", ArticleListController(drop: drop))
 drop.resource("/articles", ArticleListController(drop: drop))
 drop.resource("/articles/page/:page", ArticleListController(drop: drop))
+
+// 固定ページ
+drop.resource("/subcontents/:name", SubContentController(drop: drop))
 
 drop.run()
