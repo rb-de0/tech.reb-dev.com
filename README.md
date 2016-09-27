@@ -33,7 +33,7 @@ TODO
 - [ ] add script for preparing DB
 
 ## LICENSE
-swift-cms-server is released under the MIT License. See the LICENSE.md file for more info.
+vapor-cms is released under the MIT License. See the LICENSE.md file for more info.
 
 
 ## DEPENDENCY
