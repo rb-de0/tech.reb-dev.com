@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Edit</title>
+  <title>Edit</title>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/styles/common.css" rel="stylesheet">
-	<link href="/styles/card.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/common.css" rel="stylesheet">
+  <link href="/styles/card.css" rel="stylesheet">
 </head>
 
 <body>
-	#embed("header")
+  #embed("header")
 
-	<div class="content">
-		#loop(articles, "article") {
-			<div class="card">
-				<div class="card-block">
-					<h3 class="card-title">#(article.title)</h3>
-					<p class="card-text">#(article.part_of_content)</p>
-					<a href="/update?id=#(article.id)" class="btn btn-default">記事を編集する</a>
-				</div>
+  <div class="content">
+    #loop(articles, "article") {
+      <div class="card">
+        <div class="card-block">
+          <h3 class="card-title">#(article.title)</h3>
+          <p class="card-text">#(article.part_of_content)</p>
+          <a href="/update?id=#(article.id)" class="btn btn-default">記事を編集する</a>
+        </div>
 
-				<div class="card-footer text-muted">
-					#(article.created_at)
-				</div>
-			</div>
-		}
+        <div class="card-footer text-muted">
+          #(article.created_at)
+        </div>
+      </div>
+    }
 
-		<div id="footer-content">
+    <div id="footer-content">
 
-			#if(has_previous) {
-				<a class="btn btn-default footer-left" href="/articles/page/#(previous)" role="button">前のページ</a>
-			}
+      #if(has_previous) {
+        <a class="btn btn-default footer-left" href="/articles/page/#(previous)" role="button">前のページ</a>
+      }
 
-			#if(has_next) {
-				<a class="btn btn-default footer-right" href="/articles/page/#(next)" role="button">次のページ</a>
-			}
-		
-		</div>
-		<div class="clearbox"></div>
-	</div>
+      #if(has_next) {
+        <a class="btn btn-default footer-right" href="/articles/page/#(next)" role="button">次のページ</a>
+      }
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </div>
+    <div class="clearbox"></div>
+  </div>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 
 </html>

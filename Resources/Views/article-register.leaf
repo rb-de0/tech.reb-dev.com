@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>NewPost</title>
 
@@ -19,9 +20,11 @@
     <div class="container">
       <div class="register-form">
         <form action="/new" method="post">
+
           <h1>記事を投稿する</h1>
           <div class="error-message">#(error_message)</div>
           <div class="success-message">#(success_message)</div>
+
           <br>
           <br>
 
@@ -49,7 +52,7 @@
             </div>
 
             <button type="submit" id="register-btn" class="btn btn-default" name="action" value="article-register">記事を投稿する</button>
-            
+
           </div>
         </div>
       </div>
