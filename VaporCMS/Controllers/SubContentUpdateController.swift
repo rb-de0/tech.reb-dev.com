@@ -1,7 +1,7 @@
 import Vapor
 import HTTP
 
-class ArticleUpdateController: ResourceRepresentable {
+class SubContentUpdateController: ResourceRepresentable {
     
     private weak var drop: Droplet!
     
@@ -15,7 +15,7 @@ class ArticleUpdateController: ResourceRepresentable {
             store: store
         )
     }
-
+    
     func index(request: Request) throws -> ResponseRepresentable {
 
         guard SessionManager.hasSession(request: request) else{
@@ -26,12 +26,12 @@ class ArticleUpdateController: ResourceRepresentable {
         SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
 
         // 誰でも編集可能なのでユーザーはチェックしない
-        if let id = request.data["id"]?.string, let article = ArticleAccessor.load(id: id){
-            let context = ViewUtil.contextIncludeHeader(request: request, context: article.escapedContext())
-            return try self.drop.view.make("article-update", context)
+        if let id = request.data["id"]?.string, let subContent = SubContentAccessor.loadContent(id: id){
+            let context = ViewUtil.contextIncludeHeader(request: request, context: subContent.escapedContext())
+            return try self.drop.view.make("subcontent-update", context)
         }
 
-        return Response(redirect: "/new")
+        return Response(redirect: "/new-subcontent")
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
@@ -45,32 +45,32 @@ class ArticleUpdateController: ResourceRepresentable {
         }
 
         guard let id = request.data["id"]?.string else{
-            return Response(redirect: "/new")
+            return Response(redirect: "/new-subcontent")
         }
-
+        
         var errorMessage = ""
         var successMessage = ""
 
         do{
-            let articleInput = try ArticleInput(request: request)
-            let result = ArticleAccessor.update(id: id, input: articleInput)
+            let subContentInput = try SubContentInput(request: request)
+            let result = SubContentAccessor.update(id: id, input: subContentInput)
 
             (errorMessage, successMessage) = result ? ("", "更新しました") : ("更新失敗しました", "")
         }catch let validationError as ValidationErrorProtocol{
-            // てきとー^^
-            (errorMessage, successMessage) = (validationError.message, "")
+
+            (errorMessage, successMessage) = (validationError.message, "")            
         }
 
         let viewData: [String: Node] = [
             "id": Node(id),
-            "title": Node(request.data["title"]?.string ?? ""),
+            "title": Node(request.data["name"]?.string ?? ""),
             "content": Node(request.data["content"]?.string ?? ""),
             "error_message": Node(errorMessage), 
             "success_message": Node(successMessage)
         ]
 
         let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
-        
-        return try self.drop.view.make("article-update", context)
+
+        return try self.drop.view.make("subcontent-update", context)
     }
 }

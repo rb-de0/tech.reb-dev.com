@@ -37,9 +37,9 @@ struct Article: QueryRowResultType, Renderable{
     }
 
     func escapedContext() -> [String: Node]{
-        var dic = [String: Node]()
+        var context = [String: Node]()
         
-        dic = [
+        context = [
             "id": Node(id),
             "title": Node(SecureUtil.stringOfEscapedScript(html: title)),
             "content": Node(SecureUtil.stringOfEscapedScript(html: content)),
@@ -47,6 +47,6 @@ struct Article: QueryRowResultType, Renderable{
             "createdAt": Node(createdAt)
         ]
 
-        return dic
+        return context
     }
 }
