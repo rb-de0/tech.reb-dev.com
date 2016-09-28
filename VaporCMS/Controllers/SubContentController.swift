@@ -27,7 +27,10 @@ class SubContentController: ResourceRepresentable {
             return Response(status: .noContent, body: "no content")
         }
 
-        print(subContent)
-        return "hoge"
+        let html = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: subContent.content))
+        let viewData: [String: Node] = ["title": Node(subContent.name), "content": Node(html)] 
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
+
+        return try self.drop.view.make("subcontent", context)
     }
 }
