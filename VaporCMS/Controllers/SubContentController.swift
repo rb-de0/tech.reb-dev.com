@@ -28,7 +28,9 @@ class SubContentController: ResourceRepresentable {
         }
 
         let html = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: subContent.content))
-        let viewData: [String: Node] = ["title": Node(subContent.name), "content": Node(html)] 
+        let contentName = SecureUtil.stringOfEscapedScript(html: subContent.name)
+
+        let viewData: [String: Node] = ["title": Node(contentName), "content": Node(html)] 
         let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
 
         return try self.drop.view.make("subcontent", context)

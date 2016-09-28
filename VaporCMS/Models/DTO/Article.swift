@@ -35,4 +35,18 @@ struct Article: QueryRowResultType, Renderable{
             createdAt: r <| "created_at"
         )
     }
+
+    func escapedContext() -> [String: Node]{
+        var dic = [String: Node]()
+        
+        dic = [
+            "id": Node(id),
+            "title": Node(SecureUtil.stringOfEscapedScript(html: title)),
+            "content": Node(SecureUtil.stringOfEscapedScript(html: content)),
+            "isPublished": Node(isPublished),
+            "createdAt": Node(createdAt)
+        ]
+
+        return dic
+    }
 }
