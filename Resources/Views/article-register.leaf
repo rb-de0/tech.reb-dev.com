@@ -51,7 +51,7 @@
               </div>
             </div>
 
-            <button type="submit" id="register-btn" class="btn btn-default" name="action" value="article-register">記事を投稿する</button>
+            <button type="submit" id="register-btn" class="btn btn-default" name="action">記事を投稿する</button>
 
           </div>
         </div>
