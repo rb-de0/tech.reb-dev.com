@@ -36,4 +36,7 @@ drop.resource("/", ArticleListController(drop: drop))
 drop.resource("/articles", ArticleListController(drop: drop))
 drop.resource("/articles/page/:page", ArticleListController(drop: drop))
 
+// 固定ページ
+drop.resource("/subcontents/:name", SubContentController(drop: drop))
+
 drop.run()
