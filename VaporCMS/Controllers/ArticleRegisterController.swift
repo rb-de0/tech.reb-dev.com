@@ -45,7 +45,11 @@ class ArticleRegisterController: ResourceRepresentable {
             let articleInput = try ArticleInput(request: request)
             let result = ArticleAccessor.register(input: articleInput)
 
-            (errorMessage, successMessage) = result ? ("", "登録しました") : ("登録失敗しました", "")
+            if result.result{
+                TwitterManager.tweetNewRegister(title: articleInput.title.value, id: result.insertedId)
+            }
+
+            (errorMessage, successMessage) = result.result ? ("", "登録しました") : ("登録失敗しました", "")
         }catch let validationError as ValidationErrorProtocol{
 
             (errorMessage, successMessage) = (validationError.message, "")            
