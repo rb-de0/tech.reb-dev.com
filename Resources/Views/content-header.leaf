@@ -21,6 +21,12 @@
           <li><a href="/subcontents/#(subcontentname)">#(subcontentname)</a></li>
         }
 
+        <ul class="nav navbar-nav navbar-right">
+          #loop(links, "link") {
+            <li><a href="#(link.path)">#(link.name)</a></li>
+          }
+        </ul>
+
       </ul>
     </div>
   </div>
