@@ -3,6 +3,7 @@ import Vapor
 let drop = Droplet(environment: .development)
 
 DatabaseUtil.configure(config: drop.config)
+ViewUtil.configure(config: drop.config)
 
 // See: https://github.com/vapor/vapor/issues/502
 // セッションCookieのPathが設定されていて辛いのでパスが怪しい
