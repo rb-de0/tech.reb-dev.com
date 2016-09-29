@@ -30,7 +30,7 @@ class ArticleController: ResourceRepresentable {
         }
 
         let html = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: article.content))
-        let title = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: article.title))
+        let title = SecureUtil.stringOfEscapedScript(html: article.title)
         let viewData: [String: Node] = ["title": Node(title), "content": Node(html), "createdAt": Node(article.createdAt)] 
         let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
 
