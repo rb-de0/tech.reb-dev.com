@@ -41,7 +41,7 @@ extension ArticleAccessor{
     class func loadPage(page: Int) -> [Article]{
         do{
             let articles: [Article] = try DatabaseUtil.connectionPool().execute { conn in
-                try conn.query("SELECT * FROM articles LIMIT ?, ?", [SELECT_UNIT * page, SELECT_UNIT])
+                try conn.query("SELECT * FROM articles ORDER BY id DESC LIMIT ?, ?", [SELECT_UNIT * page, SELECT_UNIT])
             }
 
             return articles
