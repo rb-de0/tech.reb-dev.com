@@ -17,6 +17,7 @@
     <div class="container">
       <div class="register-form">
         <form action="/new-subcontent" method="post">
+          <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
 
           <h1>サブコンテンツを追加する</h1>
           <div class="error-message">#(error_message)</div>

@@ -17,6 +17,7 @@
     <div class="container">
       <div class="register-form">
         <form action="/new" method="post">
+          <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
 
           <h1>記事を投稿する</h1>
           <div class="error-message">#(error_message)</div>

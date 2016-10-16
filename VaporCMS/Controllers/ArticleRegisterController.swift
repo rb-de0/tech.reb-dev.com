@@ -23,9 +23,7 @@ class ArticleRegisterController: ResourceRepresentable {
             return response
         }
 
-        SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
-
-        return try self.drop.view.make("article-register", ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("article-register", ViewUtil.contextIncludeHeader(request: request, context: [:], isSecure: true))
     }
 
     func store(request: Request) throws -> ResponseRepresentable {

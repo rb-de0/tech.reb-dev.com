@@ -23,11 +23,9 @@ class SubContentUpdateController: ResourceRepresentable {
             return response
         }
 
-        SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
-
         // 誰でも編集可能なのでユーザーはチェックしない
         if let id = request.data["id"]?.string, let subContent = SubContentAccessor.loadContent(id: id){
-            let context = ViewUtil.contextIncludeHeader(request: request, context: subContent.escapedContext())
+            let context = ViewUtil.contextIncludeHeader(request: request, context: subContent.escapedContext(), isSecure: true)
             return try self.drop.view.make("subcontent-update", context)
         }
 
