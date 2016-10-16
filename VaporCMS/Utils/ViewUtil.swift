@@ -7,8 +7,13 @@ class ViewUtil{
 
     private static var linkList = [Node]()
     private static var siteName = "Vapor-CMS-Application"
+    
+    private static weak var drop: Droplet!
 
-    class func configure(config: Settings.Config){
+    class func configure(config: Settings.Config, drop: Droplet){
+        
+        self.drop = drop
+        
         guard let linkArray = config["link", "linklist"]?.array else{
             return
         }
@@ -30,7 +35,7 @@ class ViewUtil{
         }
     }
 
-    class func contextIncludeHeader(request: Request, context: [String: Node]) -> Node{
+    class func contextIncludeHeader(request: Request, context: [String: Node], isSecure: Bool = false) -> Node{
         let subContentNames = SubContentAccessor.loadAll().map{$0.name}.map{Node($0)}
 
         var includedContext = context
@@ -38,6 +43,11 @@ class ViewUtil{
         includedContext["sitename"] = Node(siteName)
         includedContext["subcontentnames"] = Node(subContentNames)
         includedContext["has_session"] = Node(SessionManager.hasSession(request: request))
+        
+        if let token = SecureUtil.getAuthenticityToken(drop: drop, request: request), isSecure{
+            includedContext["authenticity_token"] = token
+        }
+        
         return Node(includedContext)
     }
 }

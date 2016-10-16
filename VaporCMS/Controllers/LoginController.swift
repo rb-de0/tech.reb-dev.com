@@ -23,9 +23,9 @@ class LoginController: ResourceRepresentable {
             return Response(redirect: "/edit")
         }
 
-        SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
+        //SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
 
-        return try self.drop.view.make("login", ViewUtil.contextIncludeHeader(request: request, context: [:]))
+        return try self.drop.view.make("login", ViewUtil.contextIncludeHeader(request: request, context: [:], isSecure: true))
     }
     
     func store(request: Request) throws -> ResponseRepresentable {
