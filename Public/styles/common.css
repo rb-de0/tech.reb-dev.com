@@ -17,6 +17,41 @@ div.row{
 	margin: 10px auto;
 }
 
+div.content-header{
+    margin: 0 auto;
+    font-size: 48px;
+    text-align: center;
+    font-weight: bold;
+    color: #777;
+}
+
+div.content-header a:link{
+    color: #777;
+}
+
+div.content-header a:visited{
+    color: #777;
+}
+
+div.content-header a:hover{
+    color: #777;
+    text-decoration: none;
+}
+
+div.content-header a:active{
+    color: #777;
+}
+
+div.header-link-area{
+    margin: 24px auto;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+span.header-link{
+    margin: 0 16px;
+}
+
 #article-title{
 	font-weight: bold;
 	text-align: left;
