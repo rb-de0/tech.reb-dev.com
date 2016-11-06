@@ -29,9 +29,7 @@ class ArticleEditController: ResourceRepresentable {
         let next = page + 1
 
         let viewArticles = articles.map{(article: Article) -> Node in
-            var context = article.escapedContext()
-            let partOfContent = SecureUtil.stringOfEscapedScript(html: article.content.take(n: 100))
-            context.updateValue(Node(partOfContent) ,forKey: "part_of_content")
+            let context = article.escapedContext()
             return Node(context)
         }
 

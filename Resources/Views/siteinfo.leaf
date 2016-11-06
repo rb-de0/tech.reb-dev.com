@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SiteInfo</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  #embed("include-header")
+</head>
+
+<body>
+  #embed("header")
+
+  <div class="content right">
+    <div class="container">
+      <div class="register-form">
+        <form action="/siteinfo" method="post">
+          <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
+
+          <h1>サイト情報の更新</h1>
+          <div class="error-message">#(error_message)</div>
+          <div class="success-message">#(success_message)</div>
+
+          <br>
+          <br>
+
+          <div class="row">
+            <div class="col-sm-2">サイト名</div>
+            <div class="col-sm-10 form-inline" style="padding: 3px;">
+              <input type="text" class="form-control input-sm" value="#(sitename)" name="sitename" placeholder="サイト名" size="30">
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-sm-2">サイト概要</div>
+              <div class="col-sm-10" style="padding: 3px;">
+                <textarea class="form-control input-sm" rows="3" name="overview" placeholder="サイト概要">#(overview)</textarea>
+              </div>
+            </div>
+
+            <button type="submit" id="register-btn" class="btn btn-default" name="action">更新する</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+  </html>

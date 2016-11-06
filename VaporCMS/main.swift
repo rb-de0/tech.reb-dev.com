@@ -3,7 +3,7 @@ import Vapor
 let drop = Droplet(environment: .development)
 
 DatabaseUtil.configure(config: drop.config)
-ViewUtil.configure(config: drop.config)
+ViewUtil.configure(config: drop.config, drop: drop)
 TwitterManager.configure(config: drop.config)
 
 // See: https://github.com/vapor/vapor/issues/502
@@ -43,5 +43,8 @@ drop.resource("/subcontents/:name", SubContentController(drop: drop))
 drop.resource("/edit-subcontents", SubContentEditController(drop: drop))
 drop.resource("/new-subcontent", SubContentRegisterController(drop: drop))
 drop.resource("/update-subcontent", SubContentUpdateController(drop: drop))
+
+// サイト情報
+drop.resource("/siteinfo", SiteInfoController(drop: drop))
 
 drop.run()

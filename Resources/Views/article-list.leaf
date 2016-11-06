@@ -18,9 +18,7 @@
     #loop(articles, "article") {
       <div class="card">
         <div class="card-block">
-          <h3 class="card-title">#(article.title)</h3>
-          <p class="card-text">#(article.part_of_content)</p>
-          <a href="/contents/#(article.id)" class="btn btn-default">もっと見る</a>
+          <a href="/contents/#(article.id)"><h3 class="card-title">#(article.title)</h3></a>
         </div>
 
         <div class="card-footer text-muted">
