@@ -17,7 +17,7 @@
     <div class="container">
     
       <div id="article-content">
-        #(content)
+        #raw(content)
       </div>
 
     </div>

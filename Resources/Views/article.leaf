@@ -26,7 +26,7 @@
 
       <hr class="content-border">
       <div id="article-content">
-        #(content)
+        #raw(content)
       </div>
 
     </div>
