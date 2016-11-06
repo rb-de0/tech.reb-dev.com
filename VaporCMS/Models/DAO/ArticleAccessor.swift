@@ -2,7 +2,7 @@ import MySQL
 import Foundation
 
 class ArticleAccessor{
-    static let SELECT_UNIT = 10
+    static let SELECT_UNIT = 20
 }
 
 // MARK: - UPDATE
