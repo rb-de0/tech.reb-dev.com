@@ -9,7 +9,7 @@
       }
 
       #loop(links, "link") {
-        <span class="header-link"<a href="#(link.path)">#(link.name)</a></span>
+        <span class="header-link"><a href="#(link.path)">#(link.name)</a></span>
       }
 
     </div>
