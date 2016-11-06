@@ -18,7 +18,7 @@ class SiteInfoAccessor{
 
 // MARK: - UPDATE
 extension SiteInfoAccessor{
-    class func update(id: String, input: SiteInfoInput) -> Bool{
+    fileprivate class func update(id: String, input: SiteInfoInput) -> Bool{
         do{
             let _ = try DatabaseUtil.connectionPool().execute { conn in
                 try conn.query("UPDATE siteinfo SET sitename=?, overview=? WHERE id=?", [input.sitename.value, input.overview.value, id])
@@ -34,6 +34,11 @@ extension SiteInfoAccessor{
 // MARK: - CREATE
 extension SiteInfoAccessor{
     class func register(input: SiteInfoInput) -> Bool {
+        
+        if let id = load()?.id{
+            return update(id: String(id), input: input)
+        }
+        
         do{
             let _ = try DatabaseUtil.connectionPool().execute { conn in
                 try conn.query("INSERT INTO siteinfo (sitename, overview) VALUES (?,?)", [input.sitename.value, input.overview.value])
