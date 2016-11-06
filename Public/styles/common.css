@@ -25,6 +25,12 @@ div.content-header{
     color: #777;
 }
 
+div.overview{
+    margin: 24px auto;
+    font-size: 20px;
+    font-weight: normal;
+}
+
 div.content-header a:link{
     color: #777;
 }

@@ -44,4 +44,7 @@ drop.resource("/edit-subcontents", SubContentEditController(drop: drop))
 drop.resource("/new-subcontent", SubContentRegisterController(drop: drop))
 drop.resource("/update-subcontent", SubContentUpdateController(drop: drop))
 
+// サイト情報
+drop.resource("/siteinfo", SiteInfoController(drop: drop))
+
 drop.run()

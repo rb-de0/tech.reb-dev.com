@@ -1,6 +1,7 @@
 <div class="container">
   <div class="content-header">
-    <div class="sitename"><a href="/">Vapor-CMS-Application</a></div>
+    <div class="sitename"><a href="/">#(sitename)</a></div>
+    <div class="overview">#(overview)</div>
 
     <div class="header-link-area">
       #loop(subcontentnames, "subcontentname") {

@@ -6,7 +6,6 @@ import Settings
 class ViewUtil{
 
     private static var linkList = [Node]()
-    private static var siteName = "Vapor-CMS-Application"
     
     private static weak var drop: Droplet!
 
@@ -29,18 +28,16 @@ class ViewUtil{
 
             return Node(dic)
         }
-
-        if let name = config["siteinfo", "sitename"]?.string{
-            siteName =  name
-        }
     }
 
     class func contextIncludeHeader(request: Request, context: [String: Node], isSecure: Bool = false) -> Node{
         let subContentNames = SubContentAccessor.loadAll().map{$0.name}.map{Node($0)}
+        let siteInfo = SiteInfoAccessor.load() ?? SiteInfo(id: 1, sitename: "vapor-cms", overview: "A simple cms server written by swift.")
 
         var includedContext = context
         includedContext["links"] = Node(linkList)
-        includedContext["sitename"] = Node(siteName)
+        includedContext["sitename"] = Node(siteInfo.sitename)
+        includedContext["overview"] = Node(siteInfo.overview)
         includedContext["subcontentnames"] = Node(subContentNames)
         includedContext["has_session"] = Node(SessionManager.hasSession(request: request))
         
