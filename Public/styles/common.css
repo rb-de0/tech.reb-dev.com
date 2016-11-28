@@ -79,6 +79,7 @@ span.header-link{
 }
 
 #article-content h2{
+    font-size: 30px;
 	font-weight: bold;
 	margin-top: 48px;
 	margin-bottom: 20px;
@@ -158,4 +159,24 @@ span.header-link{
 		width: 100%;
 		text-align: center;
 	}
+    
+    div.content-header{
+        font-size: 24px;
+    }
+    
+    div.overview{
+        font-size: 14px;
+    }
+    
+    #article-title{
+        font-size: 18px;
+    }
+    
+    #article-content{
+        font-size: 12px;
+    }
+    
+    #article-content h2{
+        font-size: 18px;
+    }
 }
