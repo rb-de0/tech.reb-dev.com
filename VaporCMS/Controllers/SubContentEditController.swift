@@ -25,7 +25,7 @@ class SubContentEditController: ResourceRepresentable {
         let subContents = SubContentAccessor.loadAll()
 
         let viewArticles = subContents.map{(subcontent: SubContent) -> Node in
-            var context = subcontent.escapedContext()
+            var context = subcontent.context()
             let partOfContent = SecureUtil.stringOfEscapedScript(html: subcontent.content.take(n: 100))
             context.updateValue(Node(partOfContent) ,forKey: "part_of_content")
             return Node(context)

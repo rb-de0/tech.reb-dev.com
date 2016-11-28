@@ -35,18 +35,4 @@ struct Article: QueryRowResultType, Renderable{
             createdAt: r <| "created_at"
         )
     }
-
-    func escapedContext() -> [String: Node]{
-        var context = [String: Node]()
-        
-        context = [
-            "id": Node(id),
-            "title": Node(SecureUtil.stringOfEscapedScript(html: title)),
-            "content": Node(SecureUtil.stringOfEscapedScript(html: content)),
-            "isPublished": Node(isPublished),
-            "createdAt": Node(createdAt)
-        ]
-
-        return context
-    }
 }

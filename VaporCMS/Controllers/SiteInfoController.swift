@@ -23,9 +23,7 @@ class SiteInfoController: ResourceRepresentable {
             return response
         }
         
-        let context = SiteInfoAccessor.load()?.escapedContext() ?? [:]
-        
-        print(context)
+        let context = SiteInfoAccessor.load()?.context() ?? [:]
         
         return try self.drop.view.make("siteinfo", ViewUtil.contextIncludeHeader(request: request, context: context, isSecure: true))
     }
