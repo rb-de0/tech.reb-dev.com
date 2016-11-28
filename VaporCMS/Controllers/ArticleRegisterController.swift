@@ -49,7 +49,6 @@ class ArticleRegisterController: ResourceRepresentable {
 
             (errorMessage, successMessage) = result.result ? ("", "登録しました") : ("登録失敗しました", "")
         }catch let validationError as ValidationErrorProtocol{
-
             (errorMessage, successMessage) = (validationError.message, "")            
         }
 
@@ -59,8 +58,8 @@ class ArticleRegisterController: ResourceRepresentable {
             "error_message": Node(errorMessage), 
             "success_message": Node(successMessage)
         ]
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
-
+        
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData, isSecure: true)
         return try self.drop.view.make("article-register", context)
     }
 }

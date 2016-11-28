@@ -56,7 +56,7 @@ class SubContentRegisterController: ResourceRepresentable {
             "success_message": Node(successMessage)
         ]
 
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData, isSecure: true)
 
         return try self.drop.view.make("subcontent-register", context)
     }

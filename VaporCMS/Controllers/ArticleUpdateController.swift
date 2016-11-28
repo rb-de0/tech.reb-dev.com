@@ -55,7 +55,6 @@ class ArticleUpdateController: ResourceRepresentable {
 
             (errorMessage, successMessage) = result ? ("", "更新しました") : ("更新失敗しました", "")
         }catch let validationError as ValidationErrorProtocol{
-            // てきとー^^
             (errorMessage, successMessage) = (validationError.message, "")
         }
 
@@ -67,7 +66,7 @@ class ArticleUpdateController: ResourceRepresentable {
             "success_message": Node(successMessage)
         ]
 
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData, isSecure: true)
         
         return try self.drop.view.make("article-update", context)
     }
