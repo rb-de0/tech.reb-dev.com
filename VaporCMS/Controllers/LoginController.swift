@@ -23,8 +23,6 @@ class LoginController: ResourceRepresentable {
             return Response(redirect: "/edit")
         }
 
-        //SecureUtil.setAuthenticityToken(drop: self.drop, request: request)
-
         return try self.drop.view.make("login", ViewUtil.contextIncludeHeader(request: request, context: [:], isSecure: true))
     }
     
@@ -38,7 +36,7 @@ class LoginController: ResourceRepresentable {
             let userInput = try UserInput(request: request)
 
             guard let loginUser = UserAccessor.isLoggedIn(drop: self.drop, input: userInput) else{
-                let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node("IDかパスワードが異なります。")])
+                let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node("IDかパスワードが異なります。")], isSecure: true)
                 return try self.drop.view.make("login", context)
             }
 
@@ -46,7 +44,7 @@ class LoginController: ResourceRepresentable {
             return Response(redirect: "/edit")
 
         }catch let validationError as ValidationErrorProtocol{
-            let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node(validationError.message)])
+            let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node(validationError.message)], isSecure: true)
             return try self.drop.view.make("login", context)
         }
     }
