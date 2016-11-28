@@ -61,14 +61,13 @@ class SubContentUpdateController: ResourceRepresentable {
 
         let viewData: [String: Node] = [
             "id": Node(id),
-            "title": Node(request.data["name"]?.string ?? ""),
+            "name": Node(request.data["name"]?.string ?? ""),
             "content": Node(request.data["content"]?.string ?? ""),
             "error_message": Node(errorMessage), 
             "success_message": Node(successMessage)
         ]
 
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
-
+        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData, isSecure: true)
         return try self.drop.view.make("subcontent-update", context)
     }
 }
