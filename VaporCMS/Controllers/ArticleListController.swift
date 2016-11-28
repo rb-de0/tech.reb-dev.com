@@ -23,11 +23,12 @@ class ArticleListController: ResourceRepresentable{
         let next = page + 1
 
         let viewArticles = articles.map{(article: Article) -> Node in
-            let context = article.escapedContext()
+            let context = article.context()
             return Node(context)
         }
 
-        let viewData: [String: Node] = ["articles": Node(viewArticles), "previous": Node(previous), "next": Node(next), "has_previous": Node(previous != -1), "has_next": Node(hasNext)]
+        let viewData: [String: Node] =
+            ["articles": Node(viewArticles), "previous": Node(previous), "next": Node(next), "has_previous": Node(previous != -1), "has_next": Node(hasNext)]
         let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
 
         return try self.drop.view.make("article-list", context)

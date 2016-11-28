@@ -29,7 +29,7 @@ class ArticleEditController: ResourceRepresentable {
         let next = page + 1
 
         let viewArticles = articles.map{(article: Article) -> Node in
-            let context = article.escapedContext()
+            let context = article.context()
             return Node(context)
         }
 

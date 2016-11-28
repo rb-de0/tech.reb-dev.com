@@ -25,7 +25,7 @@ class ArticleUpdateController: ResourceRepresentable {
 
         // 誰でも編集可能なのでユーザーはチェックしない
         if let id = request.data["id"]?.string, let article = ArticleAccessor.load(id: id){
-            let context = ViewUtil.contextIncludeHeader(request: request, context: article.escapedContext(), isSecure: true)
+            let context = ViewUtil.contextIncludeHeader(request: request, context: article.context(), isSecure: true)
             return try self.drop.view.make("article-update", context)
         }
 

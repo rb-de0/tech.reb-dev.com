@@ -13,16 +13,4 @@ struct SubContent: QueryRowResultType, Renderable {
             content: r <| "content"
         )
     }
-
-    func escapedContext() -> [String: Node]{
-        var context = [String: Node]()
-        
-        context = [
-            "id": Node(id),
-            "name": Node(SecureUtil.stringOfEscapedScript(html: name)),
-            "content": Node(SecureUtil.stringOfEscapedScript(html: content))
-        ]
-
-        return context
-    }
 }

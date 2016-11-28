@@ -25,7 +25,7 @@ class SubContentUpdateController: ResourceRepresentable {
 
         // 誰でも編集可能なのでユーザーはチェックしない
         if let id = request.data["id"]?.string, let subContent = SubContentAccessor.loadContent(id: id){
-            let context = ViewUtil.contextIncludeHeader(request: request, context: subContent.escapedContext(), isSecure: true)
+            let context = ViewUtil.contextIncludeHeader(request: request, context: subContent.context(), isSecure: true)
             return try self.drop.view.make("subcontent-update", context)
         }
 

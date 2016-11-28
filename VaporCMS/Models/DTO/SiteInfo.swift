@@ -13,16 +13,4 @@ struct SiteInfo: QueryRowResultType, Renderable {
             overview: r <| "overview"
         )
     }
-    
-    func escapedContext() -> [String: Node]{
-        var context = [String: Node]()
-        
-        context = [
-            "id": Node(id),
-            "sitename": Node(SecureUtil.stringOfEscapedScript(html: sitename)),
-            "overview": Node(SecureUtil.stringOfEscapedScript(html: overview))
-        ]
-        
-        return context
-    }
 }
