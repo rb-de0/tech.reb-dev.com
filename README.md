@@ -1,6 +1,6 @@
 # vapor-cms
 
-A simple cms server written by swift.
+A simple cms server for [tech.reb-dev.com](https://tech.reb-dev.com)
 
 ## Prerequisites
 
@@ -25,16 +25,9 @@ $ sudo apt-get install mysql-server libmysqlclient-dev
 $ sudo apt-get install libmarkdown2-dev
 ```
 
-## Usage
-TODO
-
-## TODO
-- [ ] add usage
-- [ ] add script for preparing DB
-
 ## LICENSE
-vapor-cms is released under the MIT License. See the LICENSE.md file for more info.
+tech.reb-dev.com is released under the MIT License. See the LICENSE.md file for more info.
 
 
 ## DEPENDENCY
-[DEPENDENCY.md](https://github.com/rb-de0/swift-cms-server/blob/master/DEPENDENCY.md) 
+[DEPENDENCY.md](https://github.com/rb-de0/tech.reb-dev.com/blob/master/DEPENDENCY.md) 
