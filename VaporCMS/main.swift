@@ -4,7 +4,7 @@ let drop = Droplet(environment: .development)
 
 DatabaseUtil.configure(config: drop.config)
 ViewUtil.configure(config: drop.config, drop: drop)
-TwitterManager.configure(config: drop.config)
+//TwitterManager.configure(config: drop.config)
 
 // See: https://github.com/vapor/vapor/issues/502
 // セッションCookieのPathが設定されていて辛いのでパスが怪しい
@@ -19,7 +19,7 @@ drop.resource("/logout", LogoutController(drop: drop))
 drop.resource("/edit", ArticleEditController(drop: drop))
 
 // セッションが直ったら直したい
-// app.resource("/edit/:page", controller: ArticleEditController.self)
+//app.resource("/edit/:page", controller: ArticleEditController.self)
 
 // 記事投稿
 drop.resource("/new", ArticleRegisterController(drop: drop))
