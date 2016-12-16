@@ -5,7 +5,7 @@ body {
 
 div.content{
 	margin: 0px auto;
-	width: 1280px;
+	width: 920px;
 	text-align: center;
 }
 
@@ -61,7 +61,7 @@ span.header-link{
 #article-title{
 	font-weight: bold;
 	text-align: left;
-	font-size: 30px;
+	font-size: 32px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
@@ -79,16 +79,14 @@ span.header-link{
 }
 
 #article-content h2{
-    font-size: 30px;
-	font-weight: bold;
+    font-size: 26px;
 	margin-top: 48px;
 	margin-bottom: 20px;
 	padding-bottom: 10px;
-	border-bottom: 2px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 #article-content h3{
-	font-weight: bold;
 	margin-top: 44px;
 	margin-bottom: 20px;
 	padding-bottom: 10px;
@@ -154,6 +152,7 @@ span.header-link{
 }
 
 @media screen and ( max-width: 480px ){
+    
 	div.content{
 		margin: 0px auto;
 		width: 100%;
@@ -168,15 +167,27 @@ span.header-link{
         font-size: 14px;
     }
     
+    #article-publish-date{
+        font-size: 14px;
+    }
+    
     #article-title{
         font-size: 18px;
     }
     
     #article-content{
-        font-size: 12px;
+        font-size: 14px;
     }
     
     #article-content h2{
         font-size: 18px;
+    }
+    
+    #article-content h3{
+        font-size: 18px;
+    }
+    
+    code{
+        font-size: 12px;
     }
 }

@@ -24,9 +24,9 @@ extension ArticleAccessor{
 extension ArticleAccessor{
     class func register(input: ArticleInput) -> (result: Bool, insertedId: Int) {
         do{
-            let createdAt = Date()
+            let createdAt = DateUtil.currentDate()
             let queryStatus = try DatabaseUtil.connectionPool().execute { conn in
-                try conn.query("INSERT INTO articles (title, content, created_at) VALUES (?,?,?)", [input.title.value, input.content.value, String(describing: createdAt)])
+                try conn.query("INSERT INTO articles (title, content, created_at) VALUES (?,?,?)", [input.title.value, input.content.value, createdAt])
             }
 
             return (true, queryStatus.insertedId)
