@@ -155,6 +155,7 @@ span.header-link{
     
 	div.content{
 		margin: 0px auto;
+        padding: 0px 16px;
 		width: 100%;
 		text-align: center;
 	}
