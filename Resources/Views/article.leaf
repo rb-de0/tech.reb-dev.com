@@ -15,16 +15,16 @@
 
   <div class="content">
     <div id="article-title">
-        #(title)
+      #(title)
     </div>
 
     <div id="article-publish-date">
-        投稿日時 : #(createdAt)
+      投稿日時 : #(createdAt)
     </div>
 
     <hr class="content-border">
     <div id="article-content">
-        #raw(content)
+      #raw(content)
     </div>
 
   </div>
