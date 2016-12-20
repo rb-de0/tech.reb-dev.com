@@ -2,12 +2,12 @@
 <html>
 
 <head>
-<title>#(sitename)</title>
+  <title>#(sitename)</title>
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="/styles/card.css" rel="stylesheet">
-
+  
   #embed("include-header")
 </head>
 

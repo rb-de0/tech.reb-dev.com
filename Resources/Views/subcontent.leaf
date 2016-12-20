@@ -14,13 +14,11 @@
   #embed("content-header")
 
   <div class="content">
-    <div class="container">
-    
-      <div id="article-content">
-        #raw(content)
-      </div>
 
+    <div id="article-content">
+      #raw(content)
     </div>
+
   </div>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
