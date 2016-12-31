@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="/styles/card.css" rel="stylesheet">
-  
+
   #embed("include-header")
 </head>
 
@@ -22,7 +22,7 @@
         </div>
 
         <div class="card-footer text-muted">
-          #(article.created_at)
+          #(article.createdAt)
         </div>
       </div>
     }
