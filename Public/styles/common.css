@@ -18,44 +18,44 @@ div.row{
 }
 
 div.content-header{
-    margin: 0 auto;
-    font-size: 48px;
-    text-align: center;
-    font-weight: bold;
-    color: #777;
+	margin: 0 auto;
+	font-size: 48px;
+	text-align: center;
+	font-weight: bold;
+	color: #777;
 }
 
 div.overview{
-    margin: 24px auto;
-    font-size: 20px;
-    font-weight: normal;
+	margin: 24px auto;
+	font-size: 20px;
+	font-weight: normal;
 }
 
 div.content-header a:link{
-    color: #777;
+	color: #777;
 }
 
 div.content-header a:visited{
-    color: #777;
+	color: #777;
 }
 
 div.content-header a:hover{
-    color: #777;
-    text-decoration: none;
+	color: #777;
+	text-decoration: none;
 }
 
 div.content-header a:active{
-    color: #777;
+	color: #777;
 }
 
 div.header-link-area{
-    margin: 24px auto;
-    font-size: 16px;
-    font-weight: normal;
+	margin: 24px auto;
+	font-size: 16px;
+	font-weight: normal;
 }
 
 span.header-link{
-    margin: 0 16px;
+	margin: 0 16px;
 }
 
 #article-title{
@@ -79,7 +79,7 @@ span.header-link{
 }
 
 #article-content h2{
-    font-size: 26px;
+	font-size: 26px;
 	margin-top: 48px;
 	margin-bottom: 20px;
 	padding-bottom: 10px;
@@ -147,48 +147,48 @@ span.header-link{
 }
 
 .clearbox {
-  clear: both;
+	clear: both;
 	height: 20px;
 }
 
 @media screen and ( max-width: 480px ){
-    
+
 	div.content{
 		margin: 0px auto;
-        padding: 0px 16px;
+		padding: 0px 16px;
 		width: 100%;
 		text-align: center;
 	}
-    
-    div.content-header{
-        font-size: 24px;
-    }
-    
-    div.overview{
-        font-size: 14px;
-    }
-    
-    #article-publish-date{
-        font-size: 14px;
-    }
-    
-    #article-title{
-        font-size: 18px;
-    }
-    
-    #article-content{
-        font-size: 14px;
-    }
-    
-    #article-content h2{
-        font-size: 18px;
-    }
-    
-    #article-content h3{
-        font-size: 18px;
-    }
-    
-    code{
-        font-size: 12px;
-    }
+
+	div.content-header{
+		font-size: 24px;
+	}
+
+	div.overview{
+		font-size: 14px;
+	}
+
+	#article-publish-date{
+		font-size: 14px;
+	}
+
+	#article-title{
+		font-size: 18px;
+	}
+
+	#article-content{
+		font-size: 14px;
+	}
+
+	#article-content h2{
+		font-size: 18px;
+	}
+
+	#article-content h3{
+		font-size: 18px;
+	}
+
+	code{
+		font-size: 12px;
+	}
 }

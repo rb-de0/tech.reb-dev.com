@@ -1,27 +1,27 @@
 div.card {
-    margin: 40px auto;
-    width: 85%;
-    text-align: left;
+  margin: 40px auto;
+  width: 85%;
+  text-align: left;
 }
 
 .card-title{
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .card-text{
-    margin: 20px 100px;
+  margin: 20px 100px;
 }
 
 div.card-footer{
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 @media screen and ( max-width: 480px ){
   .card-text{
-      margin: 20px auto;
+    margin: 20px auto;
   }
-  
+
   .card-title{
-      font-size: 18px;
+    font-size: 18px;
   }
 }
