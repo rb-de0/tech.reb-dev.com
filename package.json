@@ -1,0 +1,23 @@
+{
+  "name": "tech.reb-dev.com",
+  "version": "1.0.0",
+  "description": "A simple cms server for [tech.reb-dev.com](https://tech.reb-dev.com)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rb-de0/tech.reb-dev.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rb-de0/tech.reb-dev.com/issues"
+  },
+  "homepage": "https://github.com/rb-de0/tech.reb-dev.com#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-vapor": "^1.1.0"
+  }
+}
