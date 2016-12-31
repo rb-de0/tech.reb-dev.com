@@ -1,14 +1,14 @@
-# vapor-cms
+# tech.reb-dev.com
 
 A simple cms server for [tech.reb-dev.com](https://tech.reb-dev.com)
 
 ## Prerequisites
 
 #### Swift 
-- 3.0 Release
+- 3.0.2
 
 #### macOS
-- OS X El Captain 10.11.6
+- macOS Sierra 10.12.2
 
 #### Linux
 - Ubuntu 14.04
