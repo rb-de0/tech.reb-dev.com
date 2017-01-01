@@ -29,7 +29,6 @@ drop.resource("/articles/:id", ArticleController(drop: drop))
 // 記事一覧
 drop.resource("/", ArticleListController(drop: drop))
 drop.resource("/articles", ArticleListController(drop: drop))
-//drop.resource("/articles/:page", ArticleListController(drop: drop))
 
 // 固定ページ
 drop.resource("/subcontents/:name", SubContentController(drop: drop))

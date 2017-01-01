@@ -4,6 +4,9 @@
 <head>
   <title>#(title)</title>
   #embed("embeds/resource")
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/solarized-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 </head>
 
 <body>
@@ -25,6 +28,7 @@
 
   </div>
 
+  <script>hljs.initHighlightingOnLoad();</script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 
