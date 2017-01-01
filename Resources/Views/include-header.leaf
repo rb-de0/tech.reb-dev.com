@@ -1,5 +1,0 @@
-#raw() {
-  <script src="https://code.jquery.com/jquery-latest.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/styles/common.css" rel="stylesheet">
-}

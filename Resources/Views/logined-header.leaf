@@ -22,7 +22,7 @@
 
         #if(has_session) {
           <li><a href="/edit">記事一覧</a></li>
-          <li><a href="/edit-subcontents">サブコンテンツ管理</a></li>
+          <li><a href="/subcontents/edit">サブコンテンツ管理</a></li>
           <li><a href="/new">新規投稿</a></li>
           <li><a href="/siteinfo">サイト情報</a></li>
         }

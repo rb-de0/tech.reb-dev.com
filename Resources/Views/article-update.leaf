@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>NewPost</title>
-
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  #embed("include-header")
+  #embed("embeds/resource")
 </head>
 
 <body>
-  #embed("header")
+  #embed("logined-header")
 
   <div class="content right">
     <div class="container">
       <div class="register-form">
-        <form action="/update" method="post">
+        <form action="/update/#(id)" method="post">
           <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
           <input type="hidden" name="id" value="#(id)">
 
