@@ -15,7 +15,7 @@
   <div class="content right">
     <div class="container">
       <div class="register-form">
-        <form action="/update" method="post">
+        <form action="/update/#(id)" method="post">
           <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
           <input type="hidden" name="id" value="#(id)">
 

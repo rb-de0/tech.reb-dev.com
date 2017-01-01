@@ -16,14 +16,14 @@
 
   <div class="content">
 
-    <a class="btn btn-default" href="/new-subcontent">コンテンツを追加</a>
+    <a class="btn btn-default" href="/subcontents/new">コンテンツを追加</a>
 
     #loop(subcontents, "subcontent") {
       <div class="card">
         <div class="card-block">
           <h3 class="card-title">#(subcontent.name)</h3>
           <p class="card-text">#(subcontent.part_of_content)</p>
-          <a href="/update-subcontent?id=#(subcontent.id)" class="btn btn-default">編集する</a>
+          <a href="/subcontents/update/#(subcontent.id)" class="btn btn-default">編集する</a>
         </div>
       </div>
     }

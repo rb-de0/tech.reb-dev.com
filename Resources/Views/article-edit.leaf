@@ -19,7 +19,7 @@
       <div class="card">
         <div class="card-block">
           <h3 class="card-title">#(article.title)</h3>
-          <a href="/update?id=#(article.id)" class="btn btn-default">記事を編集する</a>
+          <a href="/update/#(article.id)" class="btn btn-default">記事を編集する</a>
         </div>
 
         <div class="card-footer text-muted">
@@ -31,11 +31,11 @@
     <div id="footer-content">
 
       #if(has_previous) {
-        <a class="btn btn-default footer-left" href="/articles/page/#(previous)" role="button">前のページ</a>
+        <a class="btn btn-default footer-left" href="/edit/#(previous)" role="button">前のページ</a>
       }
 
       #if(has_next) {
-        <a class="btn btn-default footer-right" href="/articles/page/#(next)" role="button">次のページ</a>
+        <a class="btn btn-default footer-right" href="/edit/#(next)" role="button">次のページ</a>
       }
 
     </div>

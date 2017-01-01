@@ -16,7 +16,8 @@ class ArticleListController: ResourceRepresentable{
     }
 
     func index(request: Request) throws -> ResponseRepresentable {
-        let page = Int(request.parameters["page"]?.string ?? "") ?? 0
+        
+        let page = Int(request.data["page"]?.string ?? "") ?? 0
         let articles = ArticleAccessor.loadPage(page: page)
         let hasNext = !ArticleAccessor.loadPage(page: page + 1).isEmpty
         let previous = page - 1

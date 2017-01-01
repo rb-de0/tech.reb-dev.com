@@ -15,7 +15,7 @@
 
   <div class="content right">
     <div class="register-form">
-      <form action="/new-subcontent" method="post">
+      <form action="/subcontents/new" method="post">
         <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
 
         <h1>サブコンテンツを追加する</h1>
