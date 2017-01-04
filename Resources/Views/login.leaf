@@ -6,7 +6,7 @@
 </head>
 
 <body>
-  #embed("header")
+  #embed("logined-header")
 
   <div class="content">
     <div class="container">

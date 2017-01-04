@@ -34,7 +34,7 @@ drop.resource("/articles", ArticleListController(drop: drop))
 drop.resource("/subcontents/:name", SubContentController(drop: drop))
 drop.resource("/subcontents/edit", SubContentEditController(drop: drop))
 drop.resource("/subcontents/new", SubContentRegisterController(drop: drop))
-drop.resource("/subcontent/update/:page", SubContentUpdateController(drop: drop))
+drop.resource("/subcontents/update/:id", SubContentUpdateController(drop: drop))
 
 // サイト情報
 drop.resource("/siteinfo", SiteInfoController(drop: drop))

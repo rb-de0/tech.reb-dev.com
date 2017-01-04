@@ -24,12 +24,12 @@ class SubContentUpdateController: ResourceRepresentable {
         }
 
         // 誰でも編集可能なのでユーザーはチェックしない
-        if let id = request.data["id"]?.string, let subContent = SubContentAccessor.loadContent(id: id){
+        if let id = request.parameters["id"]?.string, let subContent = SubContentAccessor.loadContent(id: id){
             let context = ViewUtil.contextIncludeHeader(request: request, context: subContent.context(), isSecure: true)
             return try self.drop.view.make("subcontent-update", context)
         }
-
-        return Response(redirect: "/new-subcontent")
+        
+        return Response(redirect: "/subcontents/new")
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
@@ -43,7 +43,7 @@ class SubContentUpdateController: ResourceRepresentable {
         }
 
         guard let id = request.data["id"]?.string else{
-            return Response(redirect: "/new-subcontent")
+            return Response(redirect: "/subcontents/new")
         }
         
         var errorMessage = ""
