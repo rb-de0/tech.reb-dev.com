@@ -5,7 +5,7 @@ body {
 
 div.content{
 	margin: 0px auto;
-	width: 920px;
+	width: 800px;
 	text-align: center;
 }
 
@@ -65,25 +65,27 @@ span.header-link{
 
 #article-title{
 	font-weight: bold;
-	text-align: left;
-	font-size: 32px;
+    font-size: 32px;
+    text-align: left;
 	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 8px;
 }
 
 #article-publish-date{
 	text-align: left;
-	font-size: 16px;
+	font-size: 12px;
 }
 
 #article-content{
-	line-height: 30px;
+	line-height: 28px;
 	text-align: left;
-	font-size: 16px;
+	font-size: 15px;
+    margin-top: 60px;
 	margin-bottom: 120px;
 }
 
 #article-content h2{
+    font-weight: 600;
 	font-size: 26px;
 	margin-top: 48px;
 	margin-bottom: 20px;
@@ -92,20 +94,24 @@ span.header-link{
 }
 
 #article-content h3{
-	margin-top: 44px;
+    font-size: 20px;
+	margin-top: 48px;
 	margin-bottom: 20px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #ddd;
 }
 
 #article-content h4{
-	margin-top: 20px;
+    font-size: 18px;
+	margin-top: 24px;
 	margin-bottom: 20px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #ddd;
 }
 
 #article-content pre{
+    padding: 0px;
+    border-radius: 0px;
 	margin-top: 16px;
 	margin-bottom: 16px;
 }
