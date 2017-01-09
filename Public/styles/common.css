@@ -29,9 +29,8 @@ span.header-link{
 
 #content-header{
 	margin: 0 auto;
-	font-size: 48px;
+	font-size: 32px;
 	text-align: center;
-	font-weight: bold;
 	color: #777;
 	display: inline;
 }
