@@ -30,7 +30,7 @@ extension TwitterManager{
             return
         }
 
-        let message = "\(title) : \(url)/contents/\(id)"
+        let message = "\(title) : \(url)/articles/\(id)"
         poppo?.tweet(status: message)
     }
 }
