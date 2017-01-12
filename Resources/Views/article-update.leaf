@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>NewPost</title>
+  <title>Update</title>
   #embed("embeds/resource")
 </head>
 
