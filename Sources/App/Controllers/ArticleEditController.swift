@@ -1,42 +1,57 @@
-import Vapor
-import HTTP
 
-class ArticleEditController: ResourceRepresentable {
+final class ArticleEditController: ResourceRepresentable {
     
-    private weak var drop: Droplet!
+    private let view: ViewRenderer
     
-    init(drop: Droplet) {
-        self.drop = drop
+    init(view: ViewRenderer) {
+        self.view = view
     }
 
-    func makeResource() -> Resource<String>{
+    func makeResource() -> Resource<Article>{
         return Resource(
-            index: index
+            index: index,
+            show: show
         )
     }
 
     func index(request: Request) throws -> ResponseRepresentable {
 
-        guard SessionManager.hasSession(request: request) else{
-            let response = Response(redirect: "/login")
-            return response
+        let page =  try Article.makeQuery().paginate(for: request).makeJSON()
+        return try view.makeWithBase(request: request, path: "article-edit.leaf", context: page)
+    }
+    
+    func store(request: Request) throws -> ResponseRepresentable {
+        
+        let article = try request.parameters.next(Article.self)
+        
+        guard let id = article.id?.int else {
+            throw Abort.serverError
         }
+        
+        do {
 
-        let page = Int(request.parameters["page"]?.string ?? "") ?? 0
-        let articles = ArticleAccessor.loadPage(page: page)
-        let hasNext = !ArticleAccessor.loadPage(page: page + 1).isEmpty
-        let previous = page - 1
-        let next = page + 1
-
-        let viewArticles = articles.map{(article: Article) -> Node in
-            let context = article.context()
-            return Node(context)
+            try article.update(for: request)
+            try article.validate()
+            try article.save()
+            
+            return Response(redirect: "/edit/\(id)?message=\(SuccessMessage.articleUpdate)")
+            
+        } catch {
+            
+            let context: NodeRepresentable = [
+                "id": id,
+                "title": article.title,
+                "content": article.content,
+                "error_message": error.localizedDescription
+            ]
+            
+            return try view.makeWithBase(request: request, path: "article-update", context: context)
         }
+    }
+    
+    func show(request: Request, article: Article) throws -> ResponseRepresentable {
+        
+        return try view.makeWithBase(request: request, path: "article-update", context: article.makeJSON())
 
-
-        let viewData: [String: Node] = ["articles": Node(viewArticles), "previous": Node(previous), "next": Node(next), "has_previous": Node(previous != -1), "has_next": Node(hasNext)]
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
-
-        return try self.drop.view.make("article-edit", context)
     }
 }

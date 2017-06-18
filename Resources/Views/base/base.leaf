@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>#import("pagename")</title>
+  #embed("embeds/resource")
+  #import("additional-header")
+</head>
+
+<body>
+  #embed("header/content-header")
+
+  <div class="content">
+    #import("content")
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </div>
+</body>
+
+</html>

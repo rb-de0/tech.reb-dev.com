@@ -1,16 +1,7 @@
-import Vapor
-import HTTP
-import MySQL
 
-class LogoutController: ResourceRepresentable{
+final class LogoutController: ResourceRepresentable {
 
-    private weak var drop: Droplet!
-    
-    init(drop: Droplet) {
-        self.drop = drop
-    }
-
-    func makeResource() -> Resource<String>{
+    func makeResource() -> Resource<String> {
         return Resource(
             index: index,
             store: store
@@ -18,18 +9,12 @@ class LogoutController: ResourceRepresentable{
     }
 
     func index(request: Request) throws -> ResponseRepresentable {
-        let response = Response(redirect: "/login")
-
-        // TODO: アップデートしたら直す
-        try? request.session().data["userid"] = nil
-        return response
+        request.session?.destroy()
+        return Response(redirect: "/login")
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
-        let response = Response(redirect: "/login")
-
-        // TODO: アップデートしたら直す
-        try? request.session().data["userid"] = nil
-        return response
+        request.session?.destroy()
+        return Response(redirect: "/login")
     }
 }

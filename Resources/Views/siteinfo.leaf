@@ -1,46 +1,38 @@
-<!DOCTYPE html>
-<html>
+#extend("base/auth-base")
 
-<head>
-  <title>SiteInfo</title>
-  #embed("embeds/resource")
-</head>
+#export("pagename") {
+  Edit SiteInfo
+}
 
-<body>
-  #embed("logined-header")
+#export("additional-header") {
+  <script src="/js/remove-query.js"></script>
+}
 
-  <div class="content right">
-    <div class="register-form">
-      <form action="/siteinfo" method="post">
-        <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
+#export("content") {
+  <div class="register-form">
+    <form action="/siteinfo" method="post">
+      <input type="hidden" name="csrf_token" value="#(csrf_token)">
 
-        <h1>サイト情報の更新</h1>
-        <div class="error-message">#(error_message)</div>
-        <div class="success-message">#(success_message)</div>
+      <h1>Edit SiteInfo</h1>
+      <div class="error-message">#(error_message)</div>
+      <div class="success-message">#(success_message)</div>
 
-        <br>
-        <br>
-
-        <div class="row">
-          <div class="col-sm-2">サイト名</div>
-          <div class="col-sm-10 form-inline" style="padding: 3px;">
-            <input type="text" class="form-control input-sm" value="#(sitename)" name="sitename" placeholder="サイト名" size="30">
-          </div>
+      <div class="row">
+        <div class="col-sm-2">SiteName</div>
+        <div class="col-sm-10 form-inline" style="padding: 3px;">
+          <input type="text" class="form-control input-sm" value="#(sitename)" name="sitename" placeholder="SiteName" size="30">
         </div>
-
-        <div class="row">
-          <div class="col-sm-2">サイト概要</div>
-          <div class="col-sm-10" style="padding: 3px;">
-            <textarea class="form-control input-sm" rows="3" name="overview" placeholder="サイト概要">#raw(overview)</textarea>
-          </div>
-        </div>
-
-        <button type="submit" id="register-btn" class="btn btn-default" name="action">更新する</button>
-
       </div>
-    </div>
-  </div>
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-</html>
+      <div class="row">
+        <div class="col-sm-2">SiteOverview</div>
+        <div class="col-sm-10" style="padding: 3px;">
+          <textarea class="form-control input-sm" rows="3" name="overview" placeholder="SiteOverview">#(overview)</textarea>
+        </div>
+      </div>
+
+      <button type="submit" id="register-btn" class="btn btn-default">Update</button>
+    </form>
+
+  </div>
+}

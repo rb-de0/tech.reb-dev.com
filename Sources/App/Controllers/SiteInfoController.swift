@@ -1,15 +1,13 @@
-import Vapor
-import HTTP
 
-class SiteInfoController: ResourceRepresentable {
+final class SiteInfoController: ResourceRepresentable {
     
-    private weak var drop: Droplet!
+    private let view: ViewRenderer
     
-    init(drop: Droplet) {
-        self.drop = drop
+    init(view: ViewRenderer) {
+        self.view = view
     }
     
-    func makeResource() -> Resource<String>{
+    func makeResource() -> Resource<Siteinfo> {
         return Resource(
             index: index,
             store: store
@@ -18,47 +16,33 @@ class SiteInfoController: ResourceRepresentable {
     
     func index(request: Request) throws -> ResponseRepresentable {
         
-        guard SessionManager.hasSession(request: request) else{
-            let response = Response(redirect: "/login")
-            return response
-        }
-        
-        let context = SiteInfoAccessor.load()?.context() ?? [:]
-        
-        return try self.drop.view.make("siteinfo", ViewUtil.contextIncludeHeader(request: request, context: context, isSecure: true))
+        let siteInfo = try Siteinfo.makeQuery().first()?.makeJSON()
+        return try view.makeWithBase(request: request, path: "siteinfo", context: siteInfo)
     }
     
     func store(request: Request) throws -> ResponseRepresentable {
         
-        guard SecureUtil.verifyAuthenticityToken(drop: self.drop, request: request) else{
-            return "Invalid request"
-        }
-        
-        guard SessionManager.hasSession(request: request) else{
-            return Response(redirect: "/")
-        }
-        
-        var errorMessage = ""
-        var successMessage = ""
-        
-        do{
-            let siteInfoInput = try SiteInfoInput(request: request)
-            let result = SiteInfoAccessor.register(input: siteInfoInput)
+        do {
+            
+            let siteInfo = try Siteinfo.makeQuery().first() ?? (try Siteinfo(request: request))
+            try siteInfo.update(for: request)
+            try siteInfo.validate()
+            try siteInfo.save()
+            
+            return Response(redirect: "siteinfo?message=\(SuccessMessage.subContentUpdate)")
+            
+        } catch {
+            
+            let (errorMessage, successMessage) = (error.localizedDescription, "")
 
-            (errorMessage, successMessage) = result ? ("", "更新しました") : ("更新失敗しました", "")
-        }catch let validationError as ValidationErrorProtocol{
-            (errorMessage, successMessage) = (validationError.message, "")
+            let context: NodeRepresentable = [
+                "sitename": request.data["sitename"]?.string ?? "",
+                "overview": request.data["overview"]?.string ?? "",
+                "error_message": errorMessage,
+                "success_message": successMessage
+            ]
+            
+            return try view.makeWithBase(request: request, path: "siteinfo", context: context)
         }
-        
-        let viewData: [String: Node] = [
-            "sitename": Node(request.data["sitename"]?.string ?? ""),
-            "overview": Node(request.data["overview"]?.string ?? ""),
-            "error_message": Node(errorMessage),
-            "success_message": Node(successMessage)
-        ]
-        
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData, isSecure: true)
-        
-        return try self.drop.view.make("siteinfo", context)
     }
 }

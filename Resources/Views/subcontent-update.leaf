@@ -1,46 +1,38 @@
-<!DOCTYPE html>
-<html>
+#extend("base/auth-base")
 
-<head>
-  <title>UpdateSubContent</title>
-  #embed("embeds/resource")
-</head>
+#export("pagename") {
+  Edit #(title)
+}
 
-<body>
-  #embed("logined-header")
+#export("additional-header") {
+  <script src="/js/remove-query.js"></script>
+}
 
-  <div class="content right">
-    <div class="register-form">
-      <form action="/subcontents/update/#(id)" method="post">
-        <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
-        <input type="hidden" name="id" value="#(id)">
+#export("content") {
+  <div class="register-form">
+    <form action="/subcontents/edit/#(name)" method="post">
+      <input type="hidden" name="csrf_token" value="#(csrf_token)">
 
-        <h1>サブコンテンツを更新する</h1>
-        <div class="error-message">#(error_message)</div>
-        <div class="success-message">#(success_message)</div>
-        <br>
-        <br>
+      <h1>Edit SubContent</h1>
+      <div class="error-message">#(error_message)</div>
+      <div class="success-message">#(success_message)</div>
 
-        <div class="row">
-          <div class="col-sm-2">タイトル</div>
-          <div class="col-sm-10 form-inline" style="padding: 3px;">
-            <input type="text" class="form-control input-sm" value="#(name)" name="name" placeholder="名前" size="30">
-          </div>
+      <div class="row">
+        <div class="col-sm-2">Title</div>
+        <div class="col-sm-10 form-inline" style="padding: 3px;">
+          <input type="text" class="form-control input-sm" value="#(name)" name="name" placeholder="Title" size="30">
         </div>
-
-        <div class="row">
-          <div class="col-sm-2">内容</div>
-          <div class="col-sm-10" style="padding: 3px;">
-            <textarea class="form-control input-sm" rows="20" name="content" placeholder="内容">#raw(content)</textarea>
-          </div>
-        </div>
-
-        <button type="submit" id="register-btn" class="btn btn-default" name="action">更新する</button>
-
       </div>
-    </div>
-  </div>
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-</html>
+      <div class="row">
+        <div class="col-sm-2">Contents</div>
+        <div class="col-sm-10" style="padding: 3px;">
+          <textarea class="form-control input-sm" rows="20" name="content" placeholder="Contents">#(content)</textarea>
+        </div>
+      </div>
+
+      <button type="submit" id="register-btn" class="btn btn-default">Update</button>
+    </form>
+
+  </div>
+}

@@ -2,16 +2,25 @@ import PackageDescription
 
 let package = Package(
     name: "tech.reb-dev.com",
+    targets: [
+        Target(name: "App"),
+        Target(name: "Run", dependencies: ["App"]),
+    ],
     dependencies: [
-        .Package(url: "https://github.com/vapor/vapor.git", majorVersion: 1, minor: 3),
-        .Package(url: "https://github.com/novi/mysql-swift.git", majorVersion: 0, minor: 5),
-        .Package(url: "https://github.com/rb-de0/SwiftyMarkdownParser.git", majorVersion: 0, minor: 2),
-        .Package(url: "https://github.com/rb-de0/Poppo.git", majorVersion: 0, minor: 2)
+        .Package(url: "https://github.com/vapor/vapor.git", majorVersion: 2),
+        .Package(url: "https://github.com/vapor/fluent-provider.git", majorVersion: 1),
+        .Package(url: "https://github.com/vapor/auth-provider.git", majorVersion: 1),
+        .Package(url: "https://github.com/vapor/leaf-provider.git", majorVersion: 1),
+        .Package(url: "https://github.com/vapor/redis-provider.git", majorVersion: 2),
+        .Package(url: "https://github.com/vapor/mysql-provider.git", majorVersion: 2),
+        .Package(url: "https://github.com/vapor/validation-provider.git", majorVersion: 1),
+        .Package(url: "https://github.com/vapor-community/markdown-provider", majorVersion: 1)
     ],
     exclude: [
         "Config",
+        "Database",
+        "Localization",
         "Public",
         "Resources",
-        "Tests",
     ]
 )

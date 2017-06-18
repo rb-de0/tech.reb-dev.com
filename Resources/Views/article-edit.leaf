@@ -1,43 +1,30 @@
-<!DOCTYPE html>
-<html>
+#extend("base/auth-base")
 
-<head>
-  <title>Edit</title>
-  #embed("embeds/resource")
-</head>
+#export("pagename") {
+  #(sitename)
+}
 
-<body>
-  #embed("logined-header")
+#export("content") {
 
-  <div class="content">
-    #loop(articles, "article") {
-      <div class="card">
-        <div class="card-block">
-          <h3 class="card-title">#(article.title)</h3>
-          <a href="/update/#(article.id)" class="btn btn-default">記事を編集する</a>
-        </div>
-
-        <div class="card-footer text-muted">
-          #(article.created_at)
-        </div>
+  #loop(data, "article") {
+    <div class="card">
+      <div class="card-block">
+        <h3 class="card-title">#(article.title)</h3>
+        <a href="/edit/#(article.id)" class="btn btn-default">Edit</a>
       </div>
+    </div>
+  }
+
+  <div id="footer-content">
+
+    #if(page.position.previous) {
+      <a class="btn btn-default footer-left" href="/?page=#(page.position.previous)" role="button">Previous</a>
     }
 
-    <div id="footer-content">
+    #if(page.position.next) {
+      <a class="btn btn-default footer-right" href="/?page=#(page.position.next)" role="button">Next</a>
+    }
 
-      #if(has_previous) {
-        <a class="btn btn-default footer-left" href="/edit/#(previous)" role="button">前のページ</a>
-      }
-
-      #if(has_next) {
-        <a class="btn btn-default footer-right" href="/edit/#(next)" role="button">次のページ</a>
-      }
-
-    </div>
-    <div class="clearbox"></div>
   </div>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+  <div class="clearbox"></div>
+}

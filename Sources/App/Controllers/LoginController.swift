@@ -1,14 +1,12 @@
-import Vapor
-import HTTP
-import MySQL
-import Node
 
-class LoginController: ResourceRepresentable {
+final class LoginController: ResourceRepresentable {
     
-    private weak var drop: Droplet!
+    private let view: ViewRenderer
+    private let hash: HashProtocol
     
-    init(drop: Droplet) {
-        self.drop = drop
+    init(view: ViewRenderer, hash: HashProtocol) {
+        self.view = view
+        self.hash = hash
     }
 
     func makeResource() -> Resource<String>{
@@ -19,33 +17,26 @@ class LoginController: ResourceRepresentable {
     }
     
     func index(request: Request) throws -> ResponseRepresentable {
-        guard !SessionManager.hasSession(request: request) else{            
+        
+        if request.auth.isAuthenticated(User.self) {
             return Response(redirect: "/edit")
         }
-
-        return try self.drop.view.make("login", ViewUtil.contextIncludeHeader(request: request, context: [:], isSecure: true))
+    
+        return try view.makeWithBase(request: request, path: "login")
     }
     
     func store(request: Request) throws -> ResponseRepresentable {
 
-        guard SecureUtil.verifyAuthenticityToken(drop: self.drop, request: request) else{
-            return "Invalid request"
-        }
-
-        do{
-            let userInput = try UserInput(request: request)
-
-            guard let loginUser = UserAccessor.isLoggedIn(drop: self.drop, input: userInput) else{
-                let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node("IDかパスワードが異なります。")], isSecure: true)
-                return try self.drop.view.make("login", context)
-            }
-
-            try! request.session().data["userid"] = Node(String(loginUser.id))
+        do {
+            
+            let credential = try request.userNamePassword(hash: hash)
+            let user = try User.authenticate(credential)
+            try user.persist(for: request)
             return Response(redirect: "/edit")
-
-        }catch let validationError as ValidationErrorProtocol{
-            let context = ViewUtil.contextIncludeHeader(request: request, context: ["error_message": Node(validationError.message)], isSecure: true)
-            return try self.drop.view.make("login", context)
+            
+        } catch {
+            
+            return try view.makeWithBase(request: request, path: "login", context: ["error_message": error.localizedDescription])
         }
     }
 }

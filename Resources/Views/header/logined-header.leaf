@@ -20,20 +20,12 @@
 
       <ul class="nav navbar-nav navbar-right">
 
-        #if(has_session) {
-          <li><a href="/edit">記事一覧</a></li>
-          <li><a href="/subcontents/edit">サブコンテンツ管理</a></li>
-          <li><a href="/new">新規投稿</a></li>
-          <li><a href="/siteinfo">サイト情報</a></li>
-        }
+        <li><a href="/edit">Articles</a></li>
+        <li><a href="/subcontents/edit">SubContents</a></li>
+        <li><a href="/new">New</a></li>
+        <li><a href="/siteinfo">SiteInfo</a></li>
 
-        #if(has_session) {
-          <li><a href="/logout">ログアウト</a></li>
-        }
-
-        #equal(has_session, false) {
-          <li><a href="/login">ログイン</a></li>
-        }
+        <li><a href="/logout">Logout</a></li>
 
       </ul>
 
