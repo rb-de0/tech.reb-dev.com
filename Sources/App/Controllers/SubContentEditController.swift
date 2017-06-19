@@ -16,7 +16,7 @@ final class SubContentEditController: ResourceRepresentable {
 
     func index(request: Request) throws -> ResponseRepresentable {
         
-        return try view.makeWithBase(request: request, path: "subcontent-edit", context: Subcontent.all().makeJSON())
+        return try view.makeWithBase(request: request, path: "subcontent-edit")
     }
     
     func store(request: Request) throws -> ResponseRepresentable {

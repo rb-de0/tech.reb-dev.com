@@ -34,7 +34,6 @@ final class Subcontent: Model, JSONRepresentable {
     
     func makeJSON() throws -> JSON {
         var json = JSON()
-        try json.set("id", id)
         try json.set("name", name)
         try json.set("content", content)
         return json
