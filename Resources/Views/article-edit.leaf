@@ -4,6 +4,10 @@
   #(sitename)
 }
 
+#export("additional-header") {
+  <script src="/js/form.js"></script>
+}
+
 #export("content") {
 
   #loop(data, "article") {
@@ -11,6 +15,10 @@
       <div class="card-block">
         <h3 class="card-title">#(article.title)</h3>
         <a href="/edit/#(article.id)" class="btn btn-default">Edit</a>
+        <form action="/delete/#(article.id)" method="post" onsubmit="return showDeleteAlert();">
+          <input type="hidden" name="csrf_token" value="#(csrf_token)">
+          <button type="submit" class="btn btn-default delete-btn">Delete</button>
+        </form>
       </div>
     </div>
   }

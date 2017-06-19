@@ -135,6 +135,10 @@ span.header-link{
 	width: 90%;
 }
 
+.delete-btn{
+	margin-top: 10px;
+}
+
 .content-border{
 	margin-top: 12px;
 	margin-bottom: 32px;

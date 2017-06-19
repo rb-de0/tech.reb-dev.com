@@ -17,7 +17,7 @@ final class ArticleEditController: ResourceRepresentable {
     func index(request: Request) throws -> ResponseRepresentable {
 
         let page =  try Article.makeQuery().paginate(for: request).makeJSON()
-        return try view.makeWithBase(request: request, path: "article-edit.leaf", context: page)
+        return try view.makeWithBase(request: request, path: "article-edit", context: page)
     }
     
     func store(request: Request) throws -> ResponseRepresentable {
@@ -52,6 +52,14 @@ final class ArticleEditController: ResourceRepresentable {
     func show(request: Request, article: Article) throws -> ResponseRepresentable {
         
         return try view.makeWithBase(request: request, path: "article-update", context: article.makeJSON())
-
+    }
+    
+    func delete(request: Request) throws -> ResponseRepresentable {
+        
+        let article = try request.parameters.next(Article.self)
+        
+        try article.delete()
+        
+        return Response(redirect: "/edit")
     }
 }

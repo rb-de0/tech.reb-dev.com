@@ -25,7 +25,7 @@ final class Routes: RouteCollection {
         builder.resource("/logout", LogoutController())
         
         let secureGroup = builder.grouped([
-            PasswordAuthenticationMiddleware(User.self),
+            RedirectableAuthMiddleware<User>(redirectPath: "/login"),
             CSRFMiddleware(hash: hash),
             SuccessMessageMiddleware()
         ])
@@ -34,8 +34,11 @@ final class Routes: RouteCollection {
         secureGroup.resource("/new", ArticleRegisterController(view: view))
         secureGroup.resource("/edit", ArticleEditController(view: view))
         secureGroup.post("/edit", Article.parameter, handler: ArticleEditController(view: view).store)
-        secureGroup.resource("/subcontents/edit", SubContentEditController(view: view))
+        secureGroup.post("/delete", Article.parameter, handler: ArticleEditController(view: view).delete)
+        
         secureGroup.resource("/subcontents/new", SubContentRegisterController(view: view))
+        secureGroup.resource("/subcontents/edit", SubContentEditController(view: view))
         secureGroup.post("/subcontents/edit", Subcontent.parameter, handler: SubContentEditController(view: view).store)
+        secureGroup.post("/subcontents/delete", Subcontent.parameter, handler: SubContentEditController(view: view).delete)
     }
 }
