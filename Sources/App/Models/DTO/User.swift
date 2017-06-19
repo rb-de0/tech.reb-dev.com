@@ -1,15 +1,41 @@
-import MySQL
+import Authentication
+import AuthProvider
+import FluentProvider
 
-struct User: QueryRowResultType{
-    var id: Int
-    var name: String
-    var password: String
+final class User: Model {
     
-    static func decodeRow(r: QueryRowResult) throws -> User {
-        return try User(
-            id: r <| "id",
-            name: r <| "name",
-            password: r <| "password"
-        )
+    let storage = Storage()
+    let username: String
+    let password: String
+    
+    required init(row: Row) throws {
+        username = try row.get("name")
+        password = try row.get("password")
+    }
+    
+    func makeRow() throws -> Row {
+        var row = Row()
+        try row.set("name", username)
+        try row.set("password", password)
+        return row
+    }
+}
+
+// MARK: - Preparation
+extension User: Preparation {
+    
+    static func prepare(_ database: Fluent.Database) throws {}
+    
+    static func revert(_ database: Fluent.Database) throws {}
+}
+
+// MARK: - SessionPersistable
+extension User: SessionPersistable {}
+
+// MARK: - PasswordAuthenticatable
+extension User: PasswordAuthenticatable {
+    
+    static var usernameKey: String {
+        return "name"
     }
 }

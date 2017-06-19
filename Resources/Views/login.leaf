@@ -1,44 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login</title>
-  #embed("embeds/resource")
-</head>
+#extend("base/base")
 
-<body>
-  #embed("logined-header")
+#export("pagename") {
+  Login
+}
 
-  <div class="content">
-    <div class="container">
-      <div class="register-form">
-        <form action="/login" method="post">
-          <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
-          <h1>ログイン画面</h1>
-          <br>
+#export("content") {
 
-          <div class="error-message">#(error_message)</div>
+  <div class="container">
+    <div class="register-form">
 
-          <div class="row">
-            <div class="col-sm-2">ユーザー名</div>
-            <div class="col-sm-10 form-inline" style="padding: 3px;">
-              <input type="text" class="form-control input-sm" name="username" placeholder="ユーザー名" size="20">
-            </div>
+      <form action="/login" method="post">
+        <h1>Login</h1>
+        <br>
+
+        <div class="error-message">#(error_message)</div>
+
+        <div class="row">
+          <div class="col-sm-2">Username</div>
+          <div class="col-sm-10 form-inline" style="padding: 3px;">
+            <input type="text" class="form-control input-sm" name="username" placeholder="Username" size="20">
           </div>
+        </div>
 
-          <div class="row">
-            <div class="col-sm-2">パスワード</div>
-            <div class="col-sm-10 form-inline" style="padding: 3px;">
-              <input type="password" class="form-control input-sm" name="password" placeholder="パスワード" size="20">
-            </div>
+        <div class="row">
+          <div class="col-sm-2">Password</div>
+          <div class="col-sm-10 form-inline" style="padding: 3px;">
+            <input type="password" class="form-control input-sm" name="password" placeholder="Password" size="20">
           </div>
+        </div>
 
-          <button type="submit" class="btn btn-default" name="action" value="login">ログイン</button>
-        </form>
-      </div>
+        <button type="submit" class="btn btn-default">Login</button>
+      </form>
+
     </div>
   </div>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+}

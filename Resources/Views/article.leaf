@@ -1,35 +1,27 @@
-<!DOCTYPE html>
-<html>
+#extend("base/base")
 
-<head>
-  <title>#(title)</title>
-  #embed("embeds/resource")
+#export("title") {
+  #(title)
+}
 
+#export("additional-header") {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-</head>
+}
 
-<body>
-  #embed("content-header") #(message)
+#export("content") {
+  <div id="article-title">
+    #(title)
+  </div>
 
-  <div class="content">
-    <div id="article-title">
-      #(title)
-    </div>
+  <div id="article-publish-date">
+    Published At : #(createdAt)
+  </div>
 
-    <div id="article-publish-date">
-      投稿日時 : #(createdAt)
-    </div>
-
-    <hr class="content-border">
-    <div id="article-content">
-      #raw(content)
-    </div>
-
+  <hr class="content-border"/>
+  <div id="article-content">
+    #markdown(content)
   </div>
 
   <script>hljs.initHighlightingOnLoad();</script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+}

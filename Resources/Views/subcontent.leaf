@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html>
+#extend("base/base")
 
-<head>
-  <title>#(title)</title>
-  #embed("embeds/resource")
-</head>
+#export("title") {
+  #(title)
+}
 
-<body>
-  #embed("content-header")
+#export("content") {
 
-  <div class="content">
-
-    <div id="article-content">
-      #raw(content)
-    </div>
-
+  <div id="article-content">
+    #markdown(content)
   </div>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+}

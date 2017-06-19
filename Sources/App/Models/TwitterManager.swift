@@ -1,9 +1,10 @@
-import Poppo
-import Settings
+/*
+//import Poppo
+//import Settings
 
 class TwitterManager{
 
-    static var poppo: Poppo?
+    //static var poppo: Poppo?
     static var siteUrl: String?
 
     class func configure(config: Settings.Config){
@@ -15,12 +16,13 @@ class TwitterManager{
         let accessTokenSecret = config["auth", "accessTokenSecret"]!.string!
         siteUrl = config["auth", "siteUrl"]?.string
 
+        /*
         poppo = Poppo(
             consumerKey: consumerKey,
             consumerKeySecret: consumerKeySecret,
             accessToken: accessToken,
             accessTokenSecret: accessTokenSecret
-        )
+        )*/
     }
 }
 
@@ -31,6 +33,7 @@ extension TwitterManager{
         }
 
         let message = "\(title) : \(url)/articles/\(id)"
-        poppo?.tweet(status: message)
+        //poppo?.tweet(status: message)
     }
 }
+*/

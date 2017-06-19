@@ -1,55 +1,47 @@
-<!DOCTYPE html>
-<html>
+#extend("base/auth-base")
 
-<head>
-  <title>NewPost</title>
-  #embed("embeds/resource")
-</head>
+#export("pagename") {
+  New Article
+}
 
-<body>
-  #embed("logined-header")
+#export("additional-header") {
+  <script src="/js/remove-query.js"></script>
+}
 
-  <div class="content right">
-    <div class="register-form">
-      <form action="/new" method="post">
-        <input type="hidden" name="authenticity_token" value="#(authenticity_token)">
+#export("content") {
+  <div class="register-form">
+    <form action="/new" method="post">
+      <input type="hidden" name="csrf_token" value="#(csrf_token)">
 
-        <h1>記事を投稿する</h1>
-        <div class="error-message">#(error_message)</div>
-        <div class="success-message">#(success_message)</div>
+      <h1>Post Article</h1>
+      <div class="error-message">#(error_message)</div>
+      <div class="success-message">#(success_message)</div>
 
-        <br>
-        <br>
-
-        <div class="row">
-          <div class="col-sm-2">タイトル</div>
-          <div class="col-sm-10 form-inline" style="padding: 3px;">
-            <input type="text" class="form-control input-sm" value="#(title)" name="title" placeholder="タイトル" size="100">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2">非公開にする</div>
-          <div class="col-sm-10 form-inline" style="padding: 3px;">
-            <div class="checkbox">
-              <label><input type="checkbox" value=""/>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-2">内容</div>
-            <div class="col-sm-10" style="padding: 3px;">
-              <textarea class="form-control input-sm" rows="20" name="content" placeholder="内容">#raw(content)</textarea>
-            </div>
-          </div>
-
-          <button type="submit" id="register-btn" class="btn btn-default" name="action">記事を投稿する</button>
-
+      <div class="row">
+        <div class="col-sm-2">Title</div>
+        <div class="col-sm-10 form-inline" style="padding: 3px;">
+          <input type="text" class="form-control input-sm" value="#(title)" name="title" placeholder="Title" size="100">
         </div>
       </div>
-    </div>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  </body>
-  </html>
+      <div class="row">
+        <div class="col-sm-2">Not Publish</div>
+        <div class="col-sm-10 form-inline" style="padding: 3px;">
+          <div class="checkbox">
+            <label><input type="checkbox" value=""/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">Contents</div>
+          <div class="col-sm-10" style="padding: 3px;">
+            <textarea class="form-control input-sm" rows="20" name="content" placeholder="Contents">#(content)</textarea>
+          </div>
+        </div>
+
+        <button type="submit" id="register-btn" class="btn btn-default">Post</button>
+      </form>
+    </div>
+  </div>
+}

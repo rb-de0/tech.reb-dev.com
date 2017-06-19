@@ -1,14 +1,12 @@
-import Vapor
-import HTTP
 
-class ArticleRegisterController: ResourceRepresentable {
+final class ArticleRegisterController: ResourceRepresentable {
     
-    private weak var drop: Droplet!
+    private let view: ViewRenderer
     
-    init(drop: Droplet) {
-        self.drop = drop
+    init(view: ViewRenderer) {
+        self.view = view
     }
-
+    
     func makeResource() -> Resource<String>{
         return Resource(
             index: index,
@@ -17,49 +15,34 @@ class ArticleRegisterController: ResourceRepresentable {
     }
     
     func index(request: Request) throws -> ResponseRepresentable {
-
-        guard SessionManager.hasSession(request: request) else{
-            let response = Response(redirect: "/login")
-            return response
-        }
-
-        return try self.drop.view.make("article-register", ViewUtil.contextIncludeHeader(request: request, context: [:], isSecure: true))
-    }
-
-    func store(request: Request) throws -> ResponseRepresentable {
-
-        guard SecureUtil.verifyAuthenticityToken(drop: self.drop, request: request) else{
-            return "Invalid request"
-        }
-
-        guard SessionManager.hasSession(request: request) else{
-            return Response(redirect: "/")
-        }
-
-        var errorMessage = ""
-        var successMessage = ""
-
-        do{
-            let articleInput = try ArticleInput(request: request)
-            let result = ArticleAccessor.register(input: articleInput)
-
-            if result.result{
-                TwitterManager.tweetNewRegister(title: articleInput.title.value, id: result.insertedId)
-            }
-
-            (errorMessage, successMessage) = result.result ? ("", "登録しました") : ("登録失敗しました", "")
-        }catch let validationError as ValidationErrorProtocol{
-            (errorMessage, successMessage) = (validationError.message, "")            
-        }
-
-        let viewData: [String: Node] = [
-            "title": Node(request.data["title"]?.string ?? ""),
-            "content": Node(request.data["content"]?.string ?? ""),
-            "error_message": Node(errorMessage), 
-            "success_message": Node(successMessage)
-        ]
         
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData, isSecure: true)
-        return try self.drop.view.make("article-register", context)
+        return try view.makeWithBase(request: request, path: "article-register")
+    }
+    
+    func store(request: Request) throws -> ResponseRepresentable {
+        
+        do {
+            
+            let article = try Article(request: request)
+            try article.save()
+            
+            // TODO: Twitter
+
+            guard let id = article.id?.int else {
+                throw Abort.serverError
+            }
+            
+            return Response(redirect: "/edit/\(id)?message=\(SuccessMessage.articleRegister)")
+            
+        } catch {
+            
+            let context: NodeRepresentable = [
+                "title": request.data["title"]?.string ?? "",
+                "content": request.data["content"]?.string ?? "",
+                "error_message": error.localizedDescription
+            ]
+            
+             return try view.makeWithBase(request: request, path: "article-register", context: context)
+        }
     }
 }

@@ -1,39 +1,51 @@
-import Vapor
-import HTTP
 
-class SubContentEditController: ResourceRepresentable {
+final class SubContentEditController: ResourceRepresentable {
     
-    private weak var drop: Droplet!
+    private let view: ViewRenderer
     
-    init(drop: Droplet) {
-        self.drop = drop
+    init(view: ViewRenderer) {
+        self.view = view
     }
-
-    func makeResource() -> Resource<String>{
+    
+    func makeResource() -> Resource<Subcontent>{
         return Resource(
-            index: index
+            index: index,
+            show: show
         )
     }
 
     func index(request: Request) throws -> ResponseRepresentable {
+        
+        return try view.makeWithBase(request: request, path: "subcontent-edit")
+    }
+    
+    func store(request: Request) throws -> ResponseRepresentable {
+        
+        let subContent = try request.parameters.next(Subcontent.self)
+        
+        do{
+            
+            try subContent.update(for: request)
+            try subContent.validate()
+            try subContent.save()
 
-        guard SessionManager.hasSession(request: request) else{
-            let response = Response(redirect: "/login")
-            return response
+            return Response(redirect: "/subcontents/edit/\(subContent.name)?message=\(SuccessMessage.subContentUpdate)")
+            
+        } catch {
+            
+            let context: NodeRepresentable = [
+                "name": subContent.name,
+                "content": subContent.content,
+                "error_message": error.localizedDescription
+            ]
+            
+            return try view.makeWithBase(request: request, path: "subcontent-update", context: context)
         }
-
-        let subContents = SubContentAccessor.loadAll()
-
-        let viewArticles = subContents.map{(subcontent: SubContent) -> Node in
-            var context = subcontent.context()
-            let partOfContent = SecureUtil.stringOfEscapedScript(html: subcontent.content.take(n: 100))
-            context.updateValue(Node(partOfContent) ,forKey: "part_of_content")
-            return Node(context)
-        }
-
-        let viewData: [String: Node] = ["subcontents": Node(viewArticles)]
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
-
-        return try self.drop.view.make("subcontent-edit", context)
+    }
+    
+    func show(request: Request, subContent: Subcontent) throws -> ResponseRepresentable {
+        
+        return try view.makeWithBase(request: request, path: "subcontent-update", context: subContent.makeJSON())
+        
     }
 }

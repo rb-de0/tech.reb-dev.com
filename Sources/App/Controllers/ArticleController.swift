@@ -1,39 +1,27 @@
-import Vapor
-import HTTP
-import MySQL
-import SwiftyMarkdownParser
 
-class ArticleController: ResourceRepresentable {   
+final class ArticleController: ResourceRepresentable {
 
-    private weak var drop: Droplet!
+    private let view: ViewRenderer
     
-    init(drop: Droplet) {
-        self.drop = drop
+    init(view: ViewRenderer) {
+        self.view = view
     }
 
-    func makeResource() -> Resource<String>{
+    func makeResource() -> Resource<Article> {
         return Resource(
-            index: index
+            index: index,
+            show: show
         )
     }
     
     func index(request: Request) throws -> ResponseRepresentable {
+        
+        let page =  try Article.makeQuery().paginate(for: request).makeJSON()
+        return try view.makeWithBase(request: request, path: "article-list", context: page)
+    }
 
-        guard let id = request.parameters["id"]?.string else{
-            let context = Node(["message": Node("エラー")])
-            return try self.drop.view.make("article", context)
-        }
-
-        guard let article = ArticleAccessor.load(id: id) else{
-            let context = Node(["message": Node("存在しない記事です。")])
-            return try self.drop.view.make("article", context)
-        }
-
-        let html = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: article.content))
-        let title = SecureUtil.stringOfEscapedScript(html: article.title)
-        let viewData: [String: Node] = ["title": Node(title), "content": Node(html), "createdAt": Node(article.createdAt)] 
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
-
-        return try self.drop.view.make("article", context)
+    func show(request: Request, article: Article) throws -> ResponseRepresentable {
+        
+        return try view.makeWithBase(request: request, path: "article", context: article.makeJSON())
     }
 }

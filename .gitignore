@@ -1,7 +1,3 @@
-
-# vagrant
-.vagrant
-
 # OS X
 .DS_Store
 
@@ -11,10 +7,7 @@
 /*.xcodeproj
 
 # Secure
-database.json
-link.json
-auth.json
-siteinfo.json
+/Config/*.json
 
 # Node
 /node_modules

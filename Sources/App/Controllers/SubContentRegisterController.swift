@@ -1,15 +1,13 @@
-import Vapor
-import HTTP
 
-class SubContentRegisterController: ResourceRepresentable {
+final class SubContentRegisterController: ResourceRepresentable {
     
-    private weak var drop: Droplet!
+    private let view: ViewRenderer
     
-    init(drop: Droplet) {
-        self.drop = drop
+    init(view: ViewRenderer) {
+        self.view = view
     }
 
-    func makeResource() -> Resource<String>{
+    func makeResource() -> Resource<Subcontent>{
         return Resource(
             index: index,
             store: store
@@ -17,47 +15,29 @@ class SubContentRegisterController: ResourceRepresentable {
     }
     
     func index(request: Request) throws -> ResponseRepresentable {
-
-        guard SessionManager.hasSession(request: request) else{
-            let response = Response(redirect: "/login")
-            return response
-        }
-
-        return try self.drop.view.make("subcontent-register", ViewUtil.contextIncludeHeader(request: request, context: [:], isSecure: true))
+        
+        return try view.makeWithBase(request: request, path: "subcontent-register")
     }
 
     func store(request: Request) throws -> ResponseRepresentable {
 
-        guard SecureUtil.verifyAuthenticityToken(drop: self.drop, request: request) else{
-            return "Invalid request"
-        }
-
-        guard SessionManager.hasSession(request: request) else{
-            return Response(redirect: "/")
-        }
-
-        var errorMessage = ""
-        var successMessage = ""
 
         do{
-            let subContentInput = try SubContentInput(request: request)
-            let result = SubContentAccessor.register(input: subContentInput)
+            
+            let subContent = try Subcontent(request: request)
+            try subContent.save()
+            
+            return Response(redirect: "/subcontents/edit/\(subContent.name)?message=\(SuccessMessage.subContentRegister)")
 
-            (errorMessage, successMessage) = result ? ("", "登録しました") : ("登録失敗しました", "")
-        }catch let validationError as ValidationErrorProtocol{
+        } catch {
 
-            (errorMessage, successMessage) = (validationError.message, "")            
+            let context: NodeRepresentable = [
+                "name": request.data["name"]?.string ?? "",
+                "content": request.data["content"]?.string ?? "",
+                "error_message": error.localizedDescription
+            ]
+            
+            return try view.makeWithBase(request: request, path: "subcontent-register", context: context)
         }
-
-        let viewData: [String: Node] = [
-            "title": Node(request.data["name"]?.string ?? ""),
-            "content": Node(request.data["content"]?.string ?? ""),
-            "error_message": Node(errorMessage), 
-            "success_message": Node(successMessage)
-        ]
-
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData, isSecure: true)
-
-        return try self.drop.view.make("subcontent-register", context)
     }
 }

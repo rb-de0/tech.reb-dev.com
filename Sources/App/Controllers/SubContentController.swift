@@ -1,38 +1,20 @@
-import Vapor
-import HTTP
-import MySQL
-import SwiftyMarkdownParser
 
-class SubContentController: ResourceRepresentable {   
-
-    private weak var drop: Droplet!
+final class SubContentController: ResourceRepresentable {
     
-    init(drop: Droplet) {
-        self.drop = drop
+    private let view: ViewRenderer
+    
+    init(view: ViewRenderer) {
+        self.view = view
     }
-
-    func makeResource() -> Resource<String>{
+    
+    func makeResource() -> Resource<Subcontent> {
         return Resource(
-            index: index
+            show: show
         )
     }
     
-    func index(request: Request) throws -> ResponseRepresentable {
-
-        guard let name = request.parameters["name"]?.string else{
-            return Response(status: .noContent, body: "no content")
-        }
-
-        guard let subContent = SubContentAccessor.loadContent(name: name) else{
-            return Response(status: .noContent, body: "no content")
-        }
-
-        let html = SecureUtil.stringOfEscapedScript(html: SwiftyMarkdownParser.Parser.generateHtml(from: subContent.content))
-        let contentName = SecureUtil.stringOfEscapedScript(html: subContent.name)
-
-        let viewData: [String: Node] = ["title": Node(contentName), "content": Node(html)] 
-        let context = ViewUtil.contextIncludeHeader(request: request, context: viewData)
-
-        return try self.drop.view.make("subcontent", context)
+    func show(request: Request, subContent: Subcontent) throws -> ResponseRepresentable {
+        return try view.makeWithBase(request: request, path: "subcontent", context: subContent.makeJSON())
     }
 }
+

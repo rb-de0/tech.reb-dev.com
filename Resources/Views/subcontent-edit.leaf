@@ -1,32 +1,21 @@
-<!DOCTYPE html>
-<html>
+#extend("base/auth-base")
 
-<head>
-  <title>SubContent-Edit</title>
-  #embed("embeds/resource")
-</head>
+#export("pagename") {
+  #(sitename)
+}
 
-<body>
-  #embed("logined-header")
+#export("content") {
 
-  <div class="content">
+  <a class="btn btn-default" href="/subcontents/new">Add SubContent</a>
 
-    <a class="btn btn-default" href="/subcontents/new">コンテンツを追加</a>
-
-    #loop(subcontents, "subcontent") {
-      <div class="card">
-        <div class="card-block">
-          <h3 class="card-title">#(subcontent.name)</h3>
-          <p class="card-text">#(subcontent.part_of_content)</p>
-          <a href="/subcontents/update/#(subcontent.id)" class="btn btn-default">編集する</a>
-        </div>
+  #loop(subcontentnames, "subcontentname") {
+    <div class="card">
+      <div class="card-block">
+        <h3 class="card-title">#(subcontentname)</h3>
+        <a href="/subcontents/edit/#(subcontentname)" class="btn btn-default">Edit</a>
       </div>
-    }
+    </div>
+  }
 
-    <div class="clearbox"></div>
-  </div>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+  <div class="clearbox"></div>
+}
