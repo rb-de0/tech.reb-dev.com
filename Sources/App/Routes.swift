@@ -25,7 +25,7 @@ final class Routes: RouteCollection {
         builder.resource("/logout", LogoutController())
         
         let secureGroup = builder.grouped([
-            PasswordAuthenticationMiddleware(User.self),
+            RedirectableAuthMiddleware<User>(redirectPath: "/login"),
             CSRFMiddleware(hash: hash),
             SuccessMessageMiddleware()
         ])
