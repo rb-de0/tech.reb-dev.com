@@ -4,6 +4,10 @@
   #(sitename)
 }
 
+#export("additional-header") {
+  <script src="/js/form.js"></script>
+}
+
 #export("content") {
 
   <a class="btn btn-default" href="/subcontents/new">Add SubContent</a>
@@ -13,6 +17,10 @@
       <div class="card-block">
         <h3 class="card-title">#(subcontentname)</h3>
         <a href="/subcontents/edit/#(subcontentname)" class="btn btn-default">Edit</a>
+        <form action="/subcontents/delete/#(subcontentname)" method="post" onsubmit="return showDeleteAlert();">
+          <input type="hidden" name="csrf_token" value="#(csrf_token)">
+          <button type="submit" class="btn btn-default delete-btn">Delete</button>
+        </form>
       </div>
     </div>
   }
