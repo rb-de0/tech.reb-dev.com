@@ -1,0 +1,43 @@
+box: swift:3.1
+deploy:
+  steps:
+    - script:
+        name: Install system libraries
+        code: |
+          sudo apt-get update
+          sudo apt-get install -y libssh2-1-dev
+
+    - add-ssh-key:
+        keyname: FLOCK
+        host: github.com
+
+    - add-to-known_hosts:
+        hostname: github.com
+        fingerprint: SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8
+        type: rsa
+
+    - create-file:
+        name: Create private key
+        filename: $PRIVATEKEY_PATH
+        content: $FLOCK_PRIVATE
+        overwrite: true
+
+    - create-file:
+        name: Create public key
+        filename: $PUBLICKEY_PATH
+        content: $FLOCK_PUBLIC
+        overwrite: true
+
+    - script:
+        name: Install FlockCLI for Linux
+        code: |
+          git clone git@github.com:rb-de0/FlockCLI.git -b tmp-linux-support $HOME/flock-cli
+          cd $HOME/flock-cli
+          swift build
+
+    - script:
+        name: Deploy using FlockCLI
+        code: |
+          git clone $CONFIG_URL $HOME/cms-config
+          cd $HOME/cms-config
+          $HOME/flock-cli/.build/debug/FlockCLI cdeploy
