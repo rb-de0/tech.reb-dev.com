@@ -1,6 +1,10 @@
 box: swift:3.1
 deploy:
   steps:
+    
+    - fly1tkg/deploy-master-only:
+        enable: true
+
     - script:
         name: Install system libraries
         code: |
