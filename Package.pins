@@ -38,6 +38,12 @@
       "version": "1.0.0"
     },
     {
+      "package": "CommonCrypto",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/CommonCrypto.git",
+      "version": "0.1.4"
+    },
+    {
       "package": "Console",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/console.git",
@@ -54,6 +60,12 @@
       "reason": null,
       "repositoryURL": "https://github.com/vapor/crypto.git",
       "version": "2.0.0"
+    },
+    {
+      "package": "Cryptor",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/BlueCryptor",
+      "version": "0.8.14"
     },
     {
       "package": "Debugging",
@@ -100,7 +112,7 @@
     {
       "package": "MarkdownProvider",
       "reason": null,
-      "repositoryURL": "https://github.com/vapor-community/markdown-provider",
+      "repositoryURL": "https://github.com/vapor-community/markdown-provider.git",
       "version": "1.0.0"
     },
     {
@@ -132,6 +144,12 @@
       "reason": null,
       "repositoryURL": "https://github.com/vapor/node.git",
       "version": "2.0.3"
+    },
+    {
+      "package": "Poppo",
+      "reason": null,
+      "repositoryURL": "https://github.com/rb-de0/Poppo.git",
+      "version": "0.3.0"
     },
     {
       "package": "Random",
