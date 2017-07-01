@@ -2,9 +2,11 @@
 final class ArticleRegisterController: ResourceRepresentable {
     
     private let view: ViewRenderer
+    private let twitterClient: TwitterClient
     
-    init(view: ViewRenderer) {
+    init(view: ViewRenderer, twitterClient: TwitterClient) {
         self.view = view
+        self.twitterClient = twitterClient
     }
     
     func makeResource() -> Resource<String>{
@@ -25,12 +27,12 @@ final class ArticleRegisterController: ResourceRepresentable {
             
             let article = try Article(request: request)
             try article.save()
-            
-            // TODO: Twitter
 
             guard let id = article.id?.int else {
                 throw Abort.serverError
             }
+            
+            twitterClient.tweetNewRegister(title: article.title, articleId: id)
             
             return Response(redirect: "/edit/\(id)?message=\(SuccessMessage.articleRegister)")
             

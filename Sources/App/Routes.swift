@@ -4,10 +4,12 @@ final class Routes: RouteCollection {
     
     private let view: ViewRenderer
     private let hash: HashProtocol
+    private let twitterClient: TwitterClient
     
-    init(view: ViewRenderer, hash: HashProtocol) {
+    init(view: ViewRenderer, hash: HashProtocol, twitterClient: TwitterClient) {
         self.view = view
         self.hash = hash
+        self.twitterClient = twitterClient
     }
     
     func build(_ builder: RouteBuilder) throws {
@@ -31,7 +33,7 @@ final class Routes: RouteCollection {
         ])
         
         // admin
-        secureGroup.resource("/new", ArticleRegisterController(view: view))
+        secureGroup.resource("/new", ArticleRegisterController(view: view, twitterClient: twitterClient))
         secureGroup.resource("/edit", ArticleEditController(view: view))
         secureGroup.post("/edit", Article.parameter, handler: ArticleEditController(view: view).store)
         secureGroup.post("/delete", Article.parameter, handler: ArticleEditController(view: view).delete)

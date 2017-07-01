@@ -14,7 +14,8 @@ let package = Package(
         .Package(url: "https://github.com/vapor/redis-provider.git", majorVersion: 2),
         .Package(url: "https://github.com/vapor/mysql-provider.git", majorVersion: 2),
         .Package(url: "https://github.com/vapor/validation-provider.git", majorVersion: 1),
-        .Package(url: "https://github.com/vapor-community/markdown-provider", majorVersion: 1)
+        .Package(url: "https://github.com/vapor-community/markdown-provider.git", majorVersion: 1),
+        .Package(url: "https://github.com/rb-de0/Poppo.git", majorVersion: 0)
     ],
     exclude: [
         "Config",
