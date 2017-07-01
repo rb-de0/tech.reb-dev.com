@@ -1,6 +1,6 @@
 #extend("base/base")
 
-#export("title") {
+#export("pagename") {
   #(title)
 }
 
