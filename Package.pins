@@ -5,25 +5,25 @@
       "package": "Auth",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/auth.git",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "package": "AuthProvider",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/auth-provider.git",
-      "version": "1.0.2"
+      "version": "1.1.0"
     },
     {
       "package": "BCrypt",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/bcrypt.git",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "package": "Bits",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/bits.git",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "package": "CMySQL",
@@ -35,7 +35,7 @@
       "package": "CTLS",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/ctls.git",
-      "version": "1.0.0"
+      "version": "1.1.1"
     },
     {
       "package": "CommonCrypto",
@@ -47,43 +47,43 @@
       "package": "Console",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/console.git",
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     {
       "package": "Core",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/core.git",
-      "version": "2.0.2"
+      "version": "2.1.2"
     },
     {
       "package": "Crypto",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/crypto.git",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "package": "Cryptor",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/BlueCryptor",
-      "version": "0.8.14"
+      "version": "0.8.16"
     },
     {
       "package": "Debugging",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/debugging.git",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "package": "Engine",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/engine.git",
-      "version": "2.1.0"
+      "version": "2.2.1"
     },
     {
       "package": "Fluent",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/fluent.git",
-      "version": "2.1.1"
+      "version": "2.2.0"
     },
     {
       "package": "FluentProvider",
@@ -95,7 +95,7 @@
       "package": "JSON",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/json.git",
-      "version": "2.0.2"
+      "version": "2.2.0"
     },
     {
       "package": "Leaf",
@@ -107,7 +107,7 @@
       "package": "LeafProvider",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/leaf-provider.git",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "package": "MarkdownProvider",
@@ -119,19 +119,19 @@
       "package": "Multipart",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/multipart.git",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "package": "MySQL",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/mysql.git",
-      "version": "2.0.1"
+      "version": "2.0.2"
     },
     {
       "package": "MySQLDriver",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/mysql-driver.git",
-      "version": "2.0.1"
+      "version": "2.0.2"
     },
     {
       "package": "MySQLProvider",
@@ -143,7 +143,7 @@
       "package": "Node",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/node.git",
-      "version": "2.0.3"
+      "version": "2.1.1"
     },
     {
       "package": "Poppo",
@@ -155,7 +155,7 @@
       "package": "Random",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/random.git",
-      "version": "1.0.0"
+      "version": "1.2.0"
     },
     {
       "package": "Redis",
@@ -173,19 +173,19 @@
       "package": "Routing",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/routing.git",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "package": "SQLite",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/sqlite.git",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "package": "Sockets",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/sockets.git",
-      "version": "2.0.1"
+      "version": "2.1.0"
     },
     {
       "package": "SwiftMarkdown",
@@ -197,7 +197,7 @@
       "package": "TLS",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/tls.git",
-      "version": "2.0.4"
+      "version": "2.1.0"
     },
     {
       "package": "Validation",
@@ -209,13 +209,13 @@
       "package": "ValidationProvider",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/validation-provider.git",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     {
       "package": "Vapor",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/vapor.git",
-      "version": "2.1.0"
+      "version": "2.2.1"
     },
     {
       "package": "cmark",
