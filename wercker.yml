@@ -41,4 +41,4 @@ deploy:
         code: |
           git clone $CONFIG_URL $HOME/cms-config
           cd $HOME/cms-config
-          $HOME/flock-cli/.build/debug/FlockCLI cdeploy
+          $HOME/flock-cli/.build/x86_64-unknown-linux/debug/FlockCLI cdeploy
